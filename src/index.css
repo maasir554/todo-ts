@@ -1,0 +1,259 @@
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: rgb(90, 90, 90);
+}
+
+
+#root{
+    width: 100%;
+    min-height: 100vh;
+    background: rgb(250, 250, 250);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.container{
+    --background-color: white;
+    display: flex;
+    width:100%;
+    max-width:850px;
+    flex-direction: column;
+    min-height: 600px;
+    max-height: 95vh;
+    background-color: var(--background-color);
+    margin-bottom: 10px;
+    border-radius: 15px;
+    overflow: hidden;
+    border:2px solid rgb(225, 225, 225);
+    box-shadow: 10px 10px 25px rgba(0, 0, 0, 0.1), inset 0 0 500px rgba(0, 0, 0, 0.05);
+    justify-content: space-between;
+    
+    /* & p{
+        color: white;
+        background-color: black;
+    } */
+
+    & .top-bar {
+        width:100%; 
+        min-height: 30px; 
+        background-color: rgb(245, 245, 245);
+        box-shadow: inset 0 0 25px rgba(27, 27, 27, 0.02);
+        border-bottom: 2px solid rgb(225, 225, 225);
+        padding: 5px 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        & svg {
+            min-width:50px;
+            width: 50px;
+            transform: none;
+        }
+
+        & h3{
+            font-weight: 500;
+            font-size: 15px;
+            color: rgb(90, 90, 90);    
+            white-space:nowrap;
+        }
+
+        & i{
+            font-size: 20px;
+            color: rgb(90, 90, 90);
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 7.5px;
+            transition: all 0.1s;
+
+            &:hover{
+                background-color: rgba(0, 0, 0, 0.05);
+            }
+
+            &:active{
+                background-color: rgba(0, 0, 0, 0.1);
+                opacity:0.8;
+            }   
+        }    
+    }
+    
+    & footer{
+        width: 100%;
+        border-top: 2px solid C;  
+        padding: 7.5px 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 14px;
+        color: gray;
+        font-weight: 600;
+        background-color: rgb(245, 245, 245);
+    }
+
+    & section{
+        overflow-y: auto;
+        overflow-x: hidden;
+        flex: 1; /* This will give all the remaining height available (of containainer) to the section */
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+        padding: 20px;
+        padding-top: 30px;
+        /* background-color: white; */
+    }
+}
+
+.todo-adder{
+    height: 50px;
+    min-height: 50px;
+    max-width: 700px; 
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 10px;
+    background-color: rgb(245, 245, 245);
+    border: none;
+    box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgb(200, 200, 200);
+    margin-bottom: 15px;
+    & button{
+        border: none;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        padding: 10px 20px;
+        height: 100%;
+        cursor: pointer;
+        font-weight: 500;
+        background-color: rgb(225, 225, 225);
+        color: rgb(90, 90, 90);
+
+        &:hover{
+            background-color: rgb(200, 200, 200);
+        }
+        &:active{
+            opacity: 0.7;
+        }
+        &:focus{
+            outline: 3px solid rgb(47, 107, 164);
+            outline-offset: -3px;
+        }
+    }
+    & .disabled{
+        opacity:0.5!important;
+    }
+    & input{
+        height: 100%;
+        flex:1;
+        background-color: transparent;
+        color: rgb(90, 90, 90);
+        font-size: 18px;
+        border: none;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        padding: 10px 20px;
+        font-weight: 500;
+        &::placeholder{
+            opacity: 0.5;
+        }
+        &:focus{
+            background-color: rgb(250, 250, 250);
+            outline: 3px solid rgb(47, 107, 164);
+            outline-offset: -3px;
+
+        }
+        &:hover{
+            background-color: rgb(250, 250, 250);
+        }
+    }
+}
+
+.wrapper{
+    position: relative;
+    width: 100%;
+    max-height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+    /* padding: 15px; */
+    /* background-color: gray; */
+    border-radius: 10px;
+    &::before, &::after{
+        content: '';
+        position: absolute;
+        background-color: rgba(95, 158, 160, 0.448);
+        width: 100%;
+        /* min-height: 100ch; */
+
+        height: 25px;
+        margin-right: 20px;
+    }
+
+    &::before{
+        background: linear-gradient(0deg, rgba(250,250,250,0) 0%, rgb(249, 249, 249) 100%);
+        top:0;
+    }
+
+    &::after{
+        background: linear-gradient(0deg, rgb(249, 249, 249) 0%,  rgba(250,250,250,0) 100%);
+        bottom: 0;
+    }
+    & .subwrp{
+        /* background-color: red; */
+        scrollbar-gutter: stable both-edges;
+        overflow: auto;
+        width: 100%;
+        padding-top: 20px ;
+        padding-bottom: 20px ;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+}
+
+.todo-item{
+    background-color: rgb(245, 245, 245);
+    max-width: 700px;
+    width:100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 10px;
+    padding-left: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgb(200,200,200);
+    margin-bottom: 10px;
+    
+    & span{
+        font-weight: 500;
+        color: rgb(47, 107, 164);
+    }
+    
+    & p {
+        font-weight: 500;
+        flex: 1;
+    }
+    & button{
+        padding: 7.5px 20px;
+        border-radius: 7.5px;
+        cursor: pointer;
+        font-weight: 500;
+        border: none
+    }
+}
