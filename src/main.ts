@@ -8,7 +8,7 @@ import { ImplementHyper } from "./Hyper/Hyper";
 
 import { CreateTodoItem } from './components/Todo';
 
-import { getTodos, addTodo } from './global';
+import { getTodos, addTodo, HyperTodosList_addTodo } from './global';
 
 const root = document.getElementById('root')
 
@@ -19,7 +19,13 @@ const todoAppWrapper = CreateTodoAppWrapper()
 // if initially, entries are present, then populate them:
 
 const initialTodosAll = getTodos()
-initialTodosAll.forEach( (todo, listIndex) => todoAppWrapper.methods?.populateInitial([CreateTodoItem({idx:listIndex+1, todoText: todo.text}).out()]) )
+
+initialTodosAll.forEach( (todo, listIndex) => {
+        const HypTodoItem = CreateTodoItem({idx:listIndex+1, todoText: todo.text, todoId: todo.id})
+        todoAppWrapper.methods?.addTodoItem(HypTodoItem.out())
+        HyperTodosList_addTodo(HypTodoItem)
+    }
+)
 
 
 todoAdderElement.methods?.addInputChangeFunctionality( () => {

@@ -216,6 +216,8 @@
         width: 100%;
         padding-top: 20px ;
         padding-bottom: 20px ;
+        padding-left: 10px;
+        padding-right: 10px ;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -236,7 +238,7 @@
     gap: 10px;
     border-radius: 10px;
     padding-left: 20px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.05);
     border: 1px solid rgb(200,200,200);
     margin-bottom: 10px;
     
@@ -254,6 +256,19 @@
         border-radius: 7.5px;
         cursor: pointer;
         font-weight: 500;
-        border: none
+        border: none;
+        /* color:rgb(47, 107, 164); */
+        background-color: rgb(240, 240, 240);
+        transition: opacity 0.1s;
+        &:hover{
+            background-color: rgb(235, 235, 235);
+        }
+        &:active{
+            background-color: rgb(220, 220, 220);
+            opacity: 0.75;
+        }
+        &:focus{
+            outline: 2px solid rgb(47, 107, 164);
+        }
     }
 }
