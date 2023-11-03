@@ -1,9 +1,18 @@
 import { CreateTodoItem } from "./components/Todo"
 
-const todos:{id:string, text:string, dateCreated: Date}[] = [
-    {id: 's43fr', text:"One", dateCreated:new Date()},
-    {id: 'dsfw3', text:"Two Do", dateCreated: new Date()}
+let todos:{id:string, text:string, dateCreated: Date}[] = [
+    {id: 's43fr', text:"Your tasks will appear like this.", dateCreated:new Date()},
+    {id: 'dsfw3', text:"Please avoid procrastination.", dateCreated: new Date()}
 ]
+
+// For fetching todos from local storage:
+if (localStorage.getItem('todos') !== null) todos = JSON.parse(localStorage.getItem('todos')!)
+
+// function for pushing todos to local storage
+const pushTodosToLocalStorage = () =>{
+    localStorage.setItem('todos', JSON.stringify(todos))
+} 
+
 
 const getTodos = () => {
     return todos
@@ -11,6 +20,8 @@ const getTodos = () => {
 
 const addTodo = ( todoObject: {id: string, text: string, dateCreated: Date} ) => {
     todos.push(todoObject)
+
+    pushTodosToLocalStorage()
 }
 
 const getIndexOfTodo = (id: string) => {
@@ -25,6 +36,8 @@ const getTodoById = (id: string) => {
 const updateTodoText = (id: string, text: string) => {
     const requiredTodo = getTodoById(id);
     requiredTodo.text = text
+
+    pushTodosToLocalStorage()
 }
 
 
@@ -36,6 +49,8 @@ const removeTodo =  (id: string) => {
     const index_of_object_to_remove = todos.findIndex(item => item.id === id)
 
     todos.splice(index_of_object_to_remove, 1)
+
+    pushTodosToLocalStorage()
 }
 
 /**

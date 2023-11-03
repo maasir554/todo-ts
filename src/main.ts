@@ -21,7 +21,7 @@ const todoAppWrapper = CreateTodoAppWrapper()
 const initialTodosAll = getTodos()
 
 initialTodosAll.forEach( (todo, listIndex) => {
-        const HypTodoItem = CreateTodoItem({idx:listIndex+1, todoText: todo.text, todoId: todo.id})
+        const HypTodoItem = CreateTodoItem({idx:listIndex+1, todoText: todo.text, todoId: todo.id}, true)
         
         todoAppWrapper.methods?.addTodoItem(HypTodoItem.out())
         

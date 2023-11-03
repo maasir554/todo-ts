@@ -76,6 +76,8 @@ const TodoAdder = () => {
                 
                 props.WhereToPaint.methods?.addTodoItem(HyperTodoItem.out())
 
+                props.WhereToPaint.methods?.scrollToBottom()
+                
                 // Pushing the HyperInstance of this element to Reference list, so that we can manupulate it in future:
                 // mtlab k uske methods ka fayda utha saken.
                 
@@ -114,7 +116,11 @@ const TodoAppWrapper = () => {
     wrp.appendChild(subwrp)
     
     const methods = {
-        addTodoItem: (todoItem: HTMLElement) => subwrp.appendChild(todoItem),
+        addTodoItem: (todoItem: HTMLElement) => {subwrp.appendChild(todoItem)},
+        
+        scrollToBottom: () => {
+            subwrp.scrollTop = subwrp.scrollHeight;
+        }
 
     }
     return {element: wrp, methods: methods}
@@ -123,7 +129,7 @@ const CreateTodoAppWrapper = () => {
     return new HyperInstance(TodoAppWrapper())
 }
 
-const TodoItem = (props: {idx:number, todoText: string, todoId: string}) => {
+const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animateDelayed=false) => {
     const encl = document.createElement('div');
     
     encl.className = 'todo-item';
@@ -161,7 +167,12 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}) => {
     editButton.innerHTML = '<i class="ri-edit-2-line"></i>'
     
     encl.appendChild(editButton);
+
+    // optional code for animation:
+
     
+    animateDelayed ? encl.style.animationDelay = ` ${500 + props.idx * 100}ms` : encl.style.animationDelay = "0";
+        
     const enableEdit = ()=>{
         textBox.readOnly = false
         textBox.disabled = false
@@ -270,7 +281,10 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}) => {
     const methods: TodoItemMethods = {
         getDateCreated : () => {return dateCreated},
         
-        setDisplayIndex: (idx: number) => {indexDisplay.textContent = idx + "."},
+        setDisplayIndex: (idx: number) => {
+            indexDisplay.textContent = idx + "."; 
+
+        },
         
         getHyperIndex: () => {return hyperIndex},
         
@@ -280,8 +294,8 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}) => {
 
 }
 
-const CreateTodoItem = (props: {idx:number, todoText:string, todoId: string}) => {
-    return new HyperInstance(TodoItem(props))
+const CreateTodoItem = (props: {idx:number, todoText:string, todoId: string}, animateDelayed=false) => {
+    return new HyperInstance(TodoItem(props, animateDelayed))
 }
 
 export {CreateTodoAppWrapper, CreateTodoAdder, CreateTodoItem}
