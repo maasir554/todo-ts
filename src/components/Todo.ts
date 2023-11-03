@@ -1,6 +1,6 @@
 import { HyperInstance } from "../Hyper/Hyper";
 import { nanoid } from 'nanoid'
-import { HyperTodosList_addTodo, HyperTodosList_removeTodo, getHyperTodos, getIndexOfTodo, getTodos, removeTodo } from "../global";
+import { HyperTodosList_addTodo, HyperTodosList_removeTodo, getHyperTodos, getIndexOfTodo, getTodoById, getTodos, removeTodo, updateTodoText } from "../global";
 
 const TodoAdder = () => {
 
@@ -19,11 +19,17 @@ const TodoAdder = () => {
 
     interface TodoAdderMethods {
         addTodoToApp: (props:{WhereToPaint: ReturnType<typeof CreateTodoAppWrapper> , TodoDataGetter:() => {id: string, text: string, dateCreated: Date}[], TodoDataPusher: (todoObject: {id: string, text: string, dateCreated: Date}) => void })=> void,
+        
         addSubmitFunctionality : (handeler: EventListener) => void,
+        
         addInputChangeFunctionality : (handeler:EventListener) => void,
+        
         getInputText: () => string,
+        
         setInputValue: (val:string) => void,
+        
         enableAddButton: () => void,
+        
         disableAddButton: () => void
     }
     
@@ -46,6 +52,7 @@ const TodoAdder = () => {
         enableAddButton: () => {adb.disabled = false; adb.classList.remove('disabled')},
 
         disableAddButton: () => {adb.disabled = true; adb.classList.add('disabled')},
+        
         /**
          * this function add a todo to the global record file as well as the UI.
          */
@@ -63,16 +70,25 @@ const TodoAdder = () => {
             
                 const AllTodosCount = props.TodoDataGetter().length;
 
+                // Create a new HyperInstandce and add/push it:
+                
                 const HyperTodoItem = CreateTodoItem({idx:AllTodosCount,todoText:inputText, todoId:todoId})
                 
                 props.WhereToPaint.methods?.addTodoItem(HyperTodoItem.out())
 
+                // Pushing the HyperInstance of this element to Reference list, so that we can manupulate it in future:
+                // mtlab k uske methods ka fayda utha saken.
+                
                 HyperTodosList_addTodo(HyperTodoItem)
             }
 
-            this.disableAddButton()
+            // Clear the Input
 
             this.setInputValue("")
+            
+            // disable add button as there is no text is there in input
+            
+            this.disableAddButton()
         }
 
     }
@@ -88,20 +104,18 @@ const CreateTodoAdder = () => {
 
 const TodoAppWrapper = () => {
     const wrp = document.createElement('div')
+
     wrp.className = 'wrapper'
+    
     const subwrp = document.createElement('div')
+    
     subwrp.className = 'subwrp'
     
-    // const HyperTodoItems:  ReturnType<typeof CreateTodoItem>[] = [];
-    
     wrp.appendChild(subwrp)
+    
     const methods = {
         addTodoItem: (todoItem: HTMLElement) => subwrp.appendChild(todoItem),
-        // updateIndexesOfItems: (startIndex: number) => {
-        //     for (let i=startIndex; i < getTodos().length; i++){
-        //         HyperTodoItems[i].methods?.setDisplayIndex(i+1);
-        //     }
-        // }
+
     }
     return {element: wrp, methods: methods}
 }
@@ -114,39 +128,101 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}) => {
     
     encl.className = 'todo-item';
     
+    // To diaplay the index of the item
     const indexDisplay = document.createElement('span')
     
     indexDisplay.textContent = props.idx + "." 
 
     encl.appendChild(indexDisplay)
 
-    const textBox = document.createElement('p');
+    // Tp diaplay the text content
     
+    const textBox = document.createElement('input');
+
+    textBox.type = 'text'
+    
+    textBox.readOnly = true
+
+    textBox.disabled = true
+
     encl.appendChild(textBox);
     
-    textBox.textContent =  props.todoText
+    textBox.value =  props.todoText
     
+    
+    /** Edit button for Todo Item */
+
     const editButton = document.createElement('button');
     
     editButton.className = 'todo-edit-button';
     
     editButton.type = 'button'
     
-    editButton.textContent = 'Edit'
+    editButton.innerHTML = '<i class="ri-edit-2-line"></i>'
     
     encl.appendChild(editButton);
     
+    const enableEdit = ()=>{
+        textBox.readOnly = false
+        textBox.disabled = false
+        editButton.innerHTML = '<i class="ri-check-line tick"></i>'
+        cancelButton.style.display = 'flex'
+        textBox.focus()
+    }
+
+    const disableEdit = () => {
+        textBox.readOnly = true
+        textBox.disabled = true
+        editButton.innerHTML = '<i class="ri-edit-2-line"></i>'
+        textBox.focus()
+        cancelButton.style.display = 'none'
+        // now update the global object:
+        updateTodoText(props.todoId, textBox.value)
+    }
+    
+    editButton.onclick = () => {
+        textBox.readOnly ? enableEdit() : disableEdit()
+    }
+
+    textBox.onkeydown = (e) => {
+        if (e.key === 'Enter') disableEdit()
+    }
+
+    textBox.onblur = () => {
+        if (textBox.value === getTodoById(props.todoId).text ) disableEdit()
+    }
+
+    /** Cancel button to cancel changes */
+
+    const cancelButton = document.createElement('button')
+
+    cancelButton.innerHTML = '<i class="ri-close-line cross"></i>'
+
+    cancelButton.style.display = 'none'
+
+    cancelButton.onclick = () => {
+        textBox.value = getTodoById(props.todoId).text
+        disableEdit()
+    }
+
+    encl.appendChild(cancelButton)
+    
+    /** Remove button for Todo Item */
     const removeButton = document.createElement('button'); 
     
     removeButton.className = 'todo-remove-button'
     
-    removeButton.textContent = 'Remove'
+    removeButton.innerHTML = '<i class="ri-delete-bin-line"></i>'
     
     encl.appendChild(removeButton);
     
+    
+    // date when the component is created.
     const dateCreated = Date.now()
 
-    // setting a hyper index:
+    // setting a hyper index at the time of creation:
+
+    /** This represents the index of the created HyperInstance in the reference list */
     let hyperIndex = getHyperTodos().length;
     
     // For Remove button:
@@ -180,15 +256,24 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}) => {
     
     interface TodoItemMethods {
         getDateCreated: ()=> void,
+        
+        /** Set the index which is shown in the UI, before todo text */
         setDisplayIndex: (idx: number) => void,
+        
+        /** HyperIndex represents the index of the created HyperInstance in the reference list */
         getHyperIndex: ()=>number,
+        
+        /** This function is need because we need to update the HyperIndex of the particular element manually when the reference list is updated. */
         updateHyperIndex: (n: number) => void
     }
     
     const methods: TodoItemMethods = {
         getDateCreated : () => {return dateCreated},
+        
         setDisplayIndex: (idx: number) => {indexDisplay.textContent = idx + "."},
+        
         getHyperIndex: () => {return hyperIndex},
+        
         updateHyperIndex: (n) => {hyperIndex = n} 
     }
     return {element: encl, methods: methods}

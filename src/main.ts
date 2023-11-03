@@ -22,8 +22,10 @@ const initialTodosAll = getTodos()
 
 initialTodosAll.forEach( (todo, listIndex) => {
         const HypTodoItem = CreateTodoItem({idx:listIndex+1, todoText: todo.text, todoId: todo.id})
+        
         todoAppWrapper.methods?.addTodoItem(HypTodoItem.out())
-        HyperTodosList_addTodo(HypTodoItem)
+        
+        HyperTodosList_addTodo(HypTodoItem) // for reference
     }
 )
 

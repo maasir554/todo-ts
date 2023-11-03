@@ -247,9 +247,21 @@
         color: rgb(47, 107, 164);
     }
     
-    & p {
+    & input {
         font-weight: 500;
         flex: 1;
+        background-color: transparent;
+        border: none;
+        padding: 5px 10px;
+        margin: 0;
+        font-size: 16px;
+        width: auto;
+        min-width: 0;
+        border-radius: 5px;
+
+        &:focus{
+            outline: 3px solid rgb(47, 107, 164) ;
+        }
     }
     & button{
         padding: 7.5px 20px;
@@ -270,5 +282,11 @@
         &:focus{
             outline: 2px solid rgb(47, 107, 164);
         }
+    }
+    & .tick{
+        color: rgb(125, 176, 48);
+    }
+    & .cross {
+        color: rgb(234, 73, 73);
     }
 }
