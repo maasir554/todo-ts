@@ -1,8 +1,8 @@
 import { CreateTodoItem } from "./components/Todo"
 
-let todos:{id:string, text:string, dateCreated: Date}[] = [
-    {id: 's43fr', text:"Your tasks will appear like this.", dateCreated:new Date()},
-    {id: 'dsfw3', text:"Please avoid procrastination.", dateCreated: new Date()}
+let todos:{id:string, text:string, dateCreated: Date, checked?:boolean}[] = [
+    {id: 's43fr', text:"Your tasks will appear like this.", dateCreated:new Date(), checked: false},
+    {id: 'dsfw3', text:"Please avoid procrastination.", dateCreated: new Date(), checked: false}
 ]
 
 // For fetching todos from local storage:
@@ -40,7 +40,15 @@ const updateTodoText = (id: string, text: string) => {
     pushTodosToLocalStorage()
 }
 
+const isTodoChecked = (id:string) =>{
+    return getTodoById(id).checked;
+}
 
+const toggleCheckTodoById = (id:string) => {
+    const todo = getTodoById(id);
+    todo.checked = todo.checked ? false: true;
+    pushTodosToLocalStorage()
+}
 
 /**
  * @param id - Id of the todo item, which is to be removed.
@@ -79,6 +87,8 @@ export {
         getIndexOfTodo,
         getTodoById,
         updateTodoText, 
+        toggleCheckTodoById,
+        isTodoChecked,
         getHyperTodos, 
         HyperTodosList_addTodo, 
         HyperTodosList_removeTodo 

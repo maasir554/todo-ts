@@ -1,6 +1,6 @@
 import { HyperInstance } from "../Hyper/Hyper";
 import { nanoid } from 'nanoid'
-import { HyperTodosList_addTodo, HyperTodosList_removeTodo, getHyperTodos, getIndexOfTodo, getTodoById, getTodos, removeTodo, updateTodoText } from "../global";
+import { HyperTodosList_addTodo, HyperTodosList_removeTodo, getHyperTodos, getIndexOfTodo, getTodoById, getTodos, isTodoChecked, removeTodo, toggleCheckTodoById, updateTodoText } from "../global";
 
 const TodoAdder = () => {
 
@@ -116,7 +116,9 @@ const TodoAppWrapper = () => {
     wrp.appendChild(subwrp)
     
     const methods = {
-        addTodoItem: (todoItem: HTMLElement) => {subwrp.appendChild(todoItem)},
+        addTodoItem: (todoItem: HTMLElement) => {
+            subwrp.appendChild(todoItem)
+        },
         
         scrollToBottom: () => {
             subwrp.scrollTop = subwrp.scrollHeight;
@@ -155,7 +157,41 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
     
     textBox.value =  props.todoText
     
-    
+   /** Check button for marking todo as done */ 
+
+   const checkButton = document.createElement('button')
+   
+   checkButton.type = 'button';
+   
+   const updateCheckedStatus = () => {
+        checkButton.innerHTML = `<i class="ri-checkbox-${isTodoChecked(props.todoId) ? '' : 'blank-'}circle-line"></i>`
+        if (isTodoChecked(props.todoId)){
+            textBox.style.textDecoration = 'line-through'
+            indexDisplay.style.textDecoration = 'line-through'
+            encl.style.backgroundColor = 'rgb(225,225,225)'
+            encl.style.borderColor = 'rgb(112 172 84)'
+            checkButton.style.backgroundColor = 'rgb(170 218 147)'
+        }
+        else{
+            textBox.style.textDecoration = 'none'
+            indexDisplay.style.textDecoration = 'none'
+            encl.style.backgroundColor = ''
+            encl.style.borderColor = ''
+            checkButton.style.backgroundColor = ''
+        }
+
+    } 
+   
+    updateCheckedStatus()
+   
+   encl.appendChild(checkButton)
+
+   checkButton.onclick = () => {
+        toggleCheckTodoById(props.todoId)
+        updateCheckedStatus()
+        
+    }
+
     /** Edit button for Todo Item */
 
     const editButton = document.createElement('button');
@@ -169,14 +205,13 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
     encl.appendChild(editButton);
 
     // optional code for animation:
-
     
     animateDelayed ? encl.style.animationDelay = ` ${500 + props.idx * 100}ms` : encl.style.animationDelay = "0";
         
     const enableEdit = ()=>{
         textBox.readOnly = false
         textBox.disabled = false
-        editButton.innerHTML = '<i class="ri-check-line tick"></i>'
+        editButton.innerHTML = '<i class="ri-save-3-line save-icon"></i>'
         cancelButton.style.display = 'flex'
         textBox.focus()
     }
@@ -221,9 +256,7 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
     /** Remove button for Todo Item */
     const removeButton = document.createElement('button'); 
     
-    removeButton.className = 'todo-remove-button'
-    
-    removeButton.innerHTML = '<i class="ri-delete-bin-line"></i>'
+    removeButton.innerHTML = '<i class="ri-delete-bin-line todo-remove-icon"></i>'
     
     encl.appendChild(removeButton);
     
@@ -252,7 +285,13 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
 
         HyperTodosList_removeTodo(methods.getHyperIndex())
 
-        encl.remove()
+        encl.style.animation = "todo-remove-anim 0.25s ease 1"
+        
+        setTimeout(() => {
+            
+            encl.remove()
+        
+        }, 250);
     
         // Now, in the ui, the below elements' indexes should be updated: 
 
@@ -276,6 +315,7 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
         
         /** This function is need because we need to update the HyperIndex of the particular element manually when the reference list is updated. */
         updateHyperIndex: (n: number) => void
+
     }
     
     const methods: TodoItemMethods = {
@@ -288,7 +328,8 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
         
         getHyperIndex: () => {return hyperIndex},
         
-        updateHyperIndex: (n) => {hyperIndex = n} 
+        updateHyperIndex: (n) => {hyperIndex = n} ,
+
     }
     return {element: encl, methods: methods}
 

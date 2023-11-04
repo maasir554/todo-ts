@@ -187,7 +187,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    overflow: hidden;
+    overflow: hidden; 
     /* padding: 15px; */
     /* background-color: gray; */
     border-radius: 10px;
@@ -215,7 +215,9 @@
     & .subwrp{
         /* background-color: red; */
         scrollbar-gutter: stable both-edges;
-        overflow: auto;
+        scroll-behavior: smooth;
+        overflow-y: auto;
+        overflow-x: hidden;
         width: 100%;
         padding-top: 20px ;
         padding-bottom: 20px ;
@@ -225,7 +227,7 @@
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
-        scroll-behavior: smooth;
+        height:auto
     }
 
 }
@@ -278,12 +280,15 @@
         }
     }
     & button{
-        padding: 7.5px 20px;
+        padding: 5.5px 10px;
+        font-size: 16px;
         border-radius: 7.5px;
         cursor: pointer;
         font-weight: 500;
         border: none;
-        /* color:rgb(47, 107, 164); */
+        display: flex;
+        align-items: center;
+        justify-content: center;
         background-color: rgb(240, 240, 240);
         transition: opacity 0.1s;
         &:hover{
@@ -297,7 +302,11 @@
             outline: 2px solid rgb(47, 107, 164);
         }
     }
-    & .tick{
+    & .todo-remove-icon{
+        color: rgb(174 78 78);
+    }
+
+    & .save-icon{
         color: rgb(125, 176, 48);
     }
     & .cross {
@@ -335,5 +344,17 @@
     }
     100%{
         transform: scale(1);
+    }
+}
+
+@keyframes todo-remove-anim{
+    0%{
+        opacity: 1;
+        transform: translateX(0) scaleY(1);
+         
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(50px) scaleY(0.1) ;
     }
 }
