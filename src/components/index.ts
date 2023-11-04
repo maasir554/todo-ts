@@ -1,3 +1,7 @@
+export { CreateTodoItem } from './TodoItem'
+
 export {CreateContainer} from './Container'
-export {CreatePara} from './Para'
-export {CreateTodoAdder, CreateTodoAppWrapper} from './Todo'
+
+export {CreateTodoAppWrapper} from './TodoAppWrapper'
+
+export {CreateTodoAdder} from './TodoAdder'

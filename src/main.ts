@@ -2,11 +2,9 @@ import 'remixicon/fonts/remixicon.css'
 
 import './index.css'
 
-import {CreateContainer, CreateTodoAdder, CreateTodoAppWrapper} from "./components";
+import {CreateContainer, CreateTodoAdder, CreateTodoAppWrapper,CreateTodoItem} from "./components";
 
 import { ImplementHyper } from "./Hyper/Hyper";
-
-import { CreateTodoItem } from './components/Todo';
 
 import { getTodos, addTodo, HyperTodosList_addTodo } from './global';
 
@@ -25,20 +23,22 @@ initialTodosAll.forEach( (todo, listIndex) => {
         
         todoAppWrapper.methods?.addTodoItem(HypTodoItem.out())
         
-        HyperTodosList_addTodo(HypTodoItem) // for reference
+        HyperTodosList_addTodo(HypTodoItem) // for reference (to be used when re-indexing the display indexes)
     }
 )
 
-
+// The following could've ben done directly in the component itself, but done here just for demonstration
 todoAdderElement.methods?.addInputChangeFunctionality( () => {
     if(todoAdderElement.methods?.getInputText() !== "") todoAdderElement.methods?.enableAddButton();
     else todoAdderElement.methods!.disableAddButton();
 })
 
+/**Important: for linking the display area with adder, and also with global object: todos*/
 todoAdderElement.methods?.addSubmitFunctionality( () => {
     todoAdderElement.methods?.addTodoToApp({WhereToPaint: todoAppWrapper, TodoDataGetter: getTodos, TodoDataPusher: addTodo })
 })
 
+// Populate the UI to root element (here div#root)
 
 ImplementHyper(
     root,

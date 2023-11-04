@@ -4,8 +4,12 @@
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: rgb(90, 90, 90);
+    -webkit-tap-highlight-color: transparent;
 }
 
+:root{
+    --anim-direction: 1;
+}
 
 #root{
     width: 100%;
@@ -16,6 +20,7 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+
 }
 
 .container{
@@ -24,8 +29,8 @@
     width:100%;
     max-width:850px;
     flex-direction: column;
-    min-height: 600px;
-    max-height: 95vh;
+    /* min-height: 600px; */
+    height: 90vh;
     background-color: var(--background-color);
     margin-bottom: 10px;
     border-radius: 15px;
@@ -33,11 +38,6 @@
     border:2px solid rgb(225, 225, 225);
     box-shadow: 10px 10px 25px rgba(0, 0, 0, 0.1), inset 0 0 500px rgba(0, 0, 0, 0.05);
     justify-content: space-between;
-    
-    /* & p{
-        color: white;
-        background-color: black;
-    } */
 
     & .top-bar {
         width:100%; 
@@ -127,6 +127,7 @@
     border: 1px solid rgb(200, 200, 200);
     margin-bottom: 15px;
     animation: todo-adder-anim 0.5s 1 ease-out;
+    
     & button{
         border: none;
         border-top-right-radius: 10px;
@@ -182,7 +183,7 @@
 .wrapper{
     position: relative;
     width: 100%;
-    max-height: 500px;
+    /* max-height: 500px; */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -227,7 +228,22 @@
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
-        height:auto
+        height:auto;
+        &::-webkit-scrollbar{
+            background-color: transparent;
+            width: 5px;
+        }
+        &::-webkit-scrollbar:hover{
+            background-color: rgb(245,245,245);
+        }
+        &::-webkit-scrollbar-thumb {
+            background: rgba(225,225,225);
+            border-radius: 10px;
+          }
+          &::-webkit-scrollbar-thumb:hover{
+            background-color: rgb(200,200,200);
+          }
+        
     }
 
 }
@@ -356,5 +372,24 @@
     100% {
         opacity: 0;
         transform: translateX(50px) scaleY(0.1) ;
+    }
+}
+
+@keyframes display-area-change-anim {
+    0%{
+        opacity: 1;
+        transform: translateX(0);
+    }
+    40%{
+        opacity: 0;
+        transform: translateX(calc(var(--anim-direction) * -75px));
+    }
+    60%{
+        opacity: 0;
+        transform: translateX(calc(var(--anim-direction) * 75px));
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0);
     }
 }

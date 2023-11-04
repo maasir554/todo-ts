@@ -2,6 +2,8 @@ import { logo } from "../assets/logo"
 
 import { HyperInstance } from "../Hyper/Hyper"
 
+import { Settings } from "./Settings"
+
 type ContainerMethods = { setBGColor: (color: string) => void  } 
 
 type containerPropsType = {className?:string, id?:string|null, displayElements?: HTMLElement[]|null}
@@ -83,14 +85,60 @@ const Container = ( props = containerProps ) => {
 
     // appending the elements received in list from props
     
-    props.displayElements?.forEach(
+
+    const populateReceivedContent = () => props.displayElements?.forEach(
         (element: HTMLElement) => displayArea.appendChild(element)
     )
-
+    
+    populateReceivedContent()
 
     // append footer to Container
 
     ctr.appendChild(footer)
+
+    // for Settings button functionality: 
+    
+    let showSettings = false;
+
+    settingsBtn.onclick = () => {
+        showSettings = !showSettings
+
+        const animDuration = 200
+        
+        displayArea.style.animation = `display-area-change-anim ${animDuration}ms ease`
+        
+        
+        setTimeout(() => { displayArea.style.animation = '' }, animDuration)
+
+        if (showSettings) {
+            document.documentElement.style.setProperty('--anim-direction', '1')
+            
+            setTimeout(() => { 
+                displayArea.innerHTML = ''; 
+                displayArea.appendChild(Settings()) 
+            }, animDuration/2)
+
+            settingsBtn.className = 'ri-arrow-left-line'
+
+            // experimental: url change without reload
+            history.pushState(null, '', '/settings');
+
+        }
+
+        else{
+            document.documentElement.style.setProperty('--anim-direction', '-1')
+            
+            setTimeout(() => {
+                displayArea.innerHTML = ''; 
+                populateReceivedContent() 
+            }, animDuration/2)
+
+            settingsBtn.className = 'ri-settings-5-line'
+
+            history.pushState(null, '', '/');
+        }
+    }
+
 
     const methods = {
         setBGColor : (color: string) => {ctr.style.setProperty('--background-color', color)}

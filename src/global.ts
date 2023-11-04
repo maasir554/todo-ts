@@ -1,4 +1,4 @@
-import { CreateTodoItem } from "./components/Todo"
+import { CreateTodoItem } from "./components/TodoAppWrapper"
 
 let todos:{id:string, text:string, dateCreated: Date, checked?:boolean}[] = [
     {id: 's43fr', text:"Your tasks will appear like this.", dateCreated:new Date(), checked: false},
