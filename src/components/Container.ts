@@ -6,7 +6,7 @@ import { Settings } from "./Settings"
 
 type ContainerMethods = { setBGColor: (color: string) => void  } 
 
-type containerPropsType = {className?:string, id?:string|null, displayElements?: HTMLElement[]|null}
+type containerPropsType = {className?:string, id?:string|null, displayElements?: HyperInstance<any>[]|null}
 
 const containerProps: containerPropsType = {className:'container', id:null, displayElements:null}
 
@@ -46,7 +46,6 @@ const Container = ( props = containerProps ) => {
 
     TopBar.innerHTML += logo('light')
     
-
     // Top bar -> title
 
     const topBarTitle = document.createElement('h3')
@@ -71,10 +70,6 @@ const Container = ( props = containerProps ) => {
     
     ctr.appendChild(TopBar)
 
-    const footer = document.createElement('footer')
-
-    footer.textContent = 'made by Mohammad Maasir'
-
     // make display area for the container
 
     const displayArea = document.createElement('section')
@@ -84,13 +79,22 @@ const Container = ( props = containerProps ) => {
     ctr.appendChild(displayArea)
 
     // appending the elements received in list from props
-    
 
-    const populateReceivedContent = () => props.displayElements?.forEach(
-        (element: HTMLElement) => displayArea.appendChild(element)
+    const populateReceivedContent = (disableAnimation = false) => props.displayElements?.forEach(
+        hyperElem => {
+            if (disableAnimation) hyperElem.methods.disableAnimation();
+            
+            displayArea.appendChild(hyperElem.out())
+        }
     )
-    
+    // populate when load: 
     populateReceivedContent()
+
+    // making footer
+
+    const footer = document.createElement('footer')
+
+    footer.textContent = 'made by Mohammad Maasir'
 
     // append footer to Container
 
@@ -103,9 +107,9 @@ const Container = ( props = containerProps ) => {
     settingsBtn.onclick = () => {
         showSettings = !showSettings
 
-        const animDuration = 200
+        const animDuration = 300
         
-        displayArea.style.animation = `display-area-change-anim ${animDuration}ms ease`
+        displayArea.style.animation = `display-area-change-anim ${animDuration}ms ease-out`
         
         
         setTimeout(() => { displayArea.style.animation = '' }, animDuration)
@@ -116,7 +120,7 @@ const Container = ( props = containerProps ) => {
             setTimeout(() => { 
                 displayArea.innerHTML = ''; 
                 displayArea.appendChild(Settings()) 
-            }, animDuration/2)
+            }, animDuration/3)
 
             settingsBtn.className = 'ri-arrow-left-line'
 
@@ -130,8 +134,8 @@ const Container = ( props = containerProps ) => {
             
             setTimeout(() => {
                 displayArea.innerHTML = ''; 
-                populateReceivedContent() 
-            }, animDuration/2)
+                populateReceivedContent(true) 
+            }, animDuration/3)
 
             settingsBtn.className = 'ri-settings-5-line'
 

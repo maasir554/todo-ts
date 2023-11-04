@@ -45,6 +45,8 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
     
     indexDisplay.textContent = props.idx + "." 
 
+    encl.style.zIndex = `${ getTodos().length - props.idx + 1}`; // for good animation experience
+
     encl.appendChild(indexDisplay)
 
     // Tp diaplay the text content
@@ -176,6 +178,7 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
         for (let i=listIndex; i < getTodos().length; i++){
             
                 HyperTodos[i].methods?.setDisplayIndex(i+1);
+
         }
     
     }
@@ -190,8 +193,13 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
         getHyperIndex: ()=>number,
         
         /** This function is need because we need to update the HyperIndex of the particular element manually when the reference list is updated. */
-        updateHyperIndex: (n: number) => void
+        updateHyperIndex: (n: number) => void,
 
+        /**This function disables animations */
+        disableAnimation: () => void 
+
+        /** for updating z-indexes of all HyperInstances */
+        updateZIndexes: () => void
     }
     
     const methods: TodoItemMethods = {
@@ -200,12 +208,26 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
         setDisplayIndex: (idx: number) => {
             indexDisplay.textContent = idx + "."; 
 
+            encl.style.zIndex = `${getTodos().length - idx + 1} `; // we will take z-ndex same as display index
         },
         
+
+
         getHyperIndex: () => {return hyperIndex},
         
         updateHyperIndex: (n) => {hyperIndex = n} ,
 
+        disableAnimation: () => {
+            encl.style.opacity = '1';
+            encl.style.animation = 'none';
+
+        },
+
+        updateZIndexes: () => {
+            getHyperTodos().forEach((htd, idx) => {
+                htd.out().style.zIndex = `${getTodos().length - idx + 1}`
+            });
+        } 
     }
     return {element: encl, methods: methods}
 

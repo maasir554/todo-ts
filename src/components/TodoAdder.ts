@@ -8,16 +8,26 @@ import { nanoid } from 'nanoid'
 const TodoAdder = () => {
 
     const wrapper = document.createElement('div');
+    
     wrapper.className = 'todo-adder';
+    
+    wrapper.style.animation = 'todo-adder-anim 0.5s 1 ease-out'
+
     const ipt = document.createElement('input');
+    
     ipt.type = 'text';
+    
     ipt.placeholder = 'Type here to add a todo...'
+    
     const adb = document.createElement('button');
+    
     adb.className ="disabled"
     adb.type = 'button';
     adb.innerHTML = `<i class="ri-add-line"></i> Add`
     adb.disabled =true;
+    
     wrapper.appendChild(ipt); 
+    
     wrapper.appendChild(adb);
 
     interface TodoAdderMethods {
@@ -33,7 +43,9 @@ const TodoAdder = () => {
         
         enableAddButton: () => void,
         
-        disableAddButton: () => void
+        disableAddButton: () => void,
+
+        disableAnimation: () => void
     }
     
     const methods: TodoAdderMethods = {
@@ -63,9 +75,12 @@ const TodoAdder = () => {
             const inputText = ipt.value.trim();
             
             if (inputText){ 
-                // push details to list:
-            
+                
+                // generate a random ID to assign it to the todo
+                
                 const todoId = nanoid(6)
+
+                // push details to list (the global object) :
                 
                 props.TodoDataPusher({id: todoId, text:inputText, dateCreated:new Date()})
             
@@ -94,6 +109,11 @@ const TodoAdder = () => {
             // disable add button as there is no text is there in input
             
             this.disableAddButton()
+        },
+
+        disableAnimation: () =>{
+            // wrapper.style.opacity = 'inherit'
+            wrapper.style.animation = 'none'
         }
 
     }

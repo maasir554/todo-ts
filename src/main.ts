@@ -45,8 +45,8 @@ ImplementHyper(
     CreateContainer(
         {
             displayElements:[ 
-                todoAdderElement.out(),
-                todoAppWrapper.out()
+                todoAdderElement,
+                todoAppWrapper
             ]
         }
     ).out()
