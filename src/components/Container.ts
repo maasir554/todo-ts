@@ -115,7 +115,7 @@ const Container = ( props = containerProps ) => {
         setTimeout(() => { displayArea.style.animation = '' }, animDuration)
 
         if (showSettings) {
-            document.documentElement.style.setProperty('--anim-direction', '1')
+            displayArea.style.setProperty('--anim-direction', '1')
             
             setTimeout(() => { 
                 displayArea.innerHTML = ''; 
@@ -130,7 +130,7 @@ const Container = ( props = containerProps ) => {
         }
 
         else{
-            document.documentElement.style.setProperty('--anim-direction', '-1')
+            displayArea.style.setProperty('--anim-direction', '-1')
             
             setTimeout(() => {
                 displayArea.innerHTML = ''; 

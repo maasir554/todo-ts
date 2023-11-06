@@ -9,7 +9,9 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
     /** Check button for marking todo as done */ 
 
    const checkButton = document.createElement('button')
-   
+
+    checkButton.className = 'tdi-check-btn'
+
    checkButton.type = 'button';
    
    const updateCheckedStatus = () => {
@@ -17,14 +19,18 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
         if (isTodoChecked(props.todoId)){
             textBox.style.textDecoration = 'line-through'
             indexDisplay.style.textDecoration = 'line-through'
-            encl.style.backgroundColor = 'rgb(225,225,225)'
-            encl.style.borderColor = 'rgb(112 172 84)'
-            checkButton.style.backgroundColor = 'rgb(170 218 147)'
+
+            encl.classList.add('todo-item-done')
+
+            // encl.style.borderColor = 'rgb(112 172 84)'
+            
+            // checkButton.style.backgroundColor = 'rgb(170 218 147)'
         }
         else{
             textBox.style.textDecoration = 'none'
             indexDisplay.style.textDecoration = 'none'
-            encl.style.backgroundColor = ''
+            // encl.style.backgroundColor = ''
+            encl.classList.remove('todo-item-done')
             encl.style.borderColor = ''
             checkButton.style.backgroundColor = ''
         }
@@ -198,8 +204,6 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
         /**This function disables animations */
         disableAnimation: () => void 
 
-        /** for updating z-indexes of all HyperInstances */
-        updateZIndexes: () => void
     }
     
     const methods: TodoItemMethods = {
@@ -223,11 +227,6 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
 
         },
 
-        updateZIndexes: () => {
-            getHyperTodos().forEach((htd, idx) => {
-                htd.out().style.zIndex = `${getTodos().length - idx + 1}`
-            });
-        } 
     }
     return {element: encl, methods: methods}
 

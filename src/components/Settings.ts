@@ -1,3 +1,4 @@
+import { getActiveMode, setActiveMode, updateAppThemeAndMode } from '.';
 import './Settings.css'
 
 const LightDarkOptionBox = () => {
@@ -20,20 +21,36 @@ const LightDarkOptionBox = () => {
     const indicator = document.createElement('div');
 
     const setIndicatorTo = (option: HTMLElement) => {        
+        // getComputedStyle can only be accessed after the element is added to DOM.
         indicator.style. width = getComputedStyle(option).width;
         indicator.style.height = getComputedStyle(option).height;
         indicator.style.left = option.offsetLeft + 'px'
  
     } 
-    setTimeout(() => { setIndicatorTo(option1) }, 1);
     
-    [option1, option2].forEach(
-        option => {
-            option.onclick = () => {
-                setIndicatorTo(option)
-            }
-        }
-    )
+    setTimeout(() => {
+         setIndicatorTo(getActiveMode() === 'light' ? option1 : option2) 
+        }, 1);
+    
+    // [option1, option2].forEach(
+    //     option => {
+    //         option.onclick = () => {
+    //             setIndicatorTo(option)
+    //         }
+    //     }
+    // )
+
+    option1.onclick = () =>{
+        setIndicatorTo(option1)
+        setActiveMode('light')
+        updateAppThemeAndMode()
+    }
+
+    option2.onclick = () =>{
+        setIndicatorTo(option2)
+        setActiveMode('dark')
+        updateAppThemeAndMode()
+    }
 
     optionBox.appendChild(indicator)
 
