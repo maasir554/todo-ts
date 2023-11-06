@@ -72,9 +72,9 @@ const AllThemes = {
     }
 }
 
-let ActiveTheme = "default";
+let ActiveTheme = 'default';
 
-let ActiveMode = "light"
+let ActiveMode = localStorage.getItem('activeMode') ? localStorage.getItem('activeMode') : 'light'
 
 const getActiveTheme = () => {
     return ActiveTheme;
@@ -86,7 +86,10 @@ const setActiveTheme = (value: string) => ActiveTheme = value
 
 const getActiveMode = () => {return ActiveMode}
 
-const setActiveMode = (value: string) => ActiveMode = value
+const setActiveMode = (value: string) => {
+    ActiveMode = value
+    localStorage.setItem('activeMode', value)
+}
 
 
 /*

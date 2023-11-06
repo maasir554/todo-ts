@@ -2,7 +2,7 @@ import 'remixicon/fonts/remixicon.css'
 
 import './index.css'
 
-import {CreateContainer, CreateTodoAdder, CreateTodoAppWrapper,CreateTodoItem} from "./components";
+import {CreateContainer, CreateTodoAdder, CreateTodoAppWrapper,CreateTodoItem, updateAppThemeAndMode} from "./components";
 
 import { ImplementHyper } from "./Hyper/Hyper";
 
@@ -37,6 +37,9 @@ todoAdderElement.methods?.addInputChangeFunctionality( () => {
 todoAdderElement.methods?.addSubmitFunctionality( () => {
     todoAdderElement.methods?.addTodoToApp({WhereToPaint: todoAppWrapper, TodoDataGetter: getTodos, TodoDataPusher: addTodo })
 })
+
+// for updating theme / mode if present in LocalStorage
+updateAppThemeAndMode()
 
 // Populate the UI to root element (here div#root)
 
