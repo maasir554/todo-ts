@@ -57,19 +57,29 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
 
     // Tp diaplay the text content
     
-    const textBox = document.createElement('input');
+    const textBox = document.createElement('textarea');
 
-    textBox.type = 'text'
+    // textBox.type = 'text'
     
     textBox.readOnly = true
 
     textBox.disabled = true
-
-    encl.appendChild(textBox);
     
     textBox.value =  props.todoText
 
-    // once we got index display, and textbox, we can ypdate the checked status.
+    // encl.appendChild(textBox);
+
+    /* When displaying the text, use paragraph element instead. */
+    
+    const displayText = document.createElement('p');
+    
+    displayText.textContent = props.todoText;
+    
+    encl.appendChild(displayText)
+
+    // ---------------
+
+    // once we got index display, and textbox, we can update the checked status.
     updateCheckedStatus()
 
     /** Edit button for Todo Item */
@@ -95,14 +105,20 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
     const enableEdit = ()=>{
         textBox.readOnly = false
         textBox.disabled = false
+        
+        textBox.style.height = getComputedStyle(displayText).height 
+        encl.replaceChild(textBox, displayText)
+        
         editButton.innerHTML = '<i class="ri-save-3-line save-icon"></i>'
         cancelButton.style.display = 'flex'
         textBox.focus()
     }
 
     const disableEdit = () => {
+        displayText.textContent = textBox.value
         textBox.readOnly = true
         textBox.disabled = true
+        encl.replaceChild(displayText, textBox)
         editButton.innerHTML = '<i class="ri-edit-2-line"></i>'
         textBox.focus()
         cancelButton.style.display = 'none'

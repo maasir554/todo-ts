@@ -21,8 +21,9 @@ const AllThemes = {
             "--tdi-btn-act-bg": "rgb(220, 220, 220)",
 
             "--tdi-done-bg": "rgb(225,225,225)",
-            "--tdi-done-check-btn-bg":"rgb(170 218 147)",
             "--tdi-done-border-color": "rgb(112 172 84)",
+            "--tdi-done-check-btn-bg":"rgb(170 218 147)",
+            "--tdi-done-check-btn-hov-bg": "rgb(142, 220, 103)",
             
             "--del-btn-fg": "rgb(174 78 78)",
             "--cancel-fg": "rgb(234, 73, 73)",
@@ -55,8 +56,9 @@ const AllThemes = {
             '--tdi-btn-act-bg': 'rgb(41 41 41)',
 
             "--tdi-done-bg": "rgb(70 70 70)",
-            "--tdi-done-check-btn-bg":"#314426",
             "--tdi-done-border-color": "#4f7b3b",
+            "--tdi-done-check-btn-bg":"#3f801a",
+            "--tdi-done-check-btn-hov-bg": "#3a7819",
             
             '--del-btn-fg': 'rgb(174 78 78)',
             '--cancel-fg': 'rgb(234, 73, 73)',
