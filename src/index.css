@@ -122,8 +122,9 @@
         border-top: 2px solid var(--normal-border-color);  
         padding: 7.5px 15px;
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
-        justify-content: flex-start;
+        justify-content: center;
         font-size: 14px;
         color: var(--normal-font-color);
         font-weight: 600;

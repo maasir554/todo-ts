@@ -34,6 +34,11 @@ const AllThemes = {
             "--scrollbar-thumb-hov-bg": "rgb(200,200,200)",
 
             "--indicator-bg":"white",
+
+            "--danger-font-color" : "rgb(175, 84, 84)",
+            "--danger-bg": "rgb(244, 229, 229)",
+            "--danger-hover-bg": "rgb(226, 213, 213)",
+
         },
         
         "dark":{
@@ -69,6 +74,10 @@ const AllThemes = {
             '--scrollbar-thumb-hov-bg': 'rgb(62 62 62)',
 
             "--indicator-bg":"rgb(36,36,36)",
+
+            "--danger-font-color" : "rgb(202 106 106)",
+            "--danger-bg": "rgb(69 59 59)",
+            "--danger-hover-bg": "rgb(93 76 76)",
 
         }
     }

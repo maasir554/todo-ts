@@ -1,4 +1,5 @@
 import { CreateTodoItem } from "./components"
+import { DoneTodosCount, TotalNumberOfTodos } from "./components/buttons"
 
 let todos:{id:string, text:string, dateCreated: Date, checked:boolean}[] = [
     {id: 's43fr', text:"Your tasks will appear like this.", dateCreated:new Date(), checked: false},
@@ -22,6 +23,11 @@ const addTodo = ( todoObject: {id: string, text: string, dateCreated: Date, chec
     todos.push(todoObject)
 
     pushTodosToLocalStorage()
+
+    // some values which depends on todos object can be updated here:
+
+    TotalNumberOfTodos().updateTotalTodoChipCount(todos.length)
+
 }
 
 const getIndexOfTodo = (id: string) => {
@@ -48,6 +54,10 @@ const toggleCheckTodoById = (id:string) => {
     const todo = getTodoById(id);
     todo.checked = todo.checked ? false: true;
     pushTodosToLocalStorage()
+
+    // dependent values update
+
+    DoneTodosCount().updateDoneTodoChipCount(todos.filter(todo => todo.checked===true).length)
 }
 
 /**
@@ -59,6 +69,10 @@ const removeTodo =  (id: string) => {
     todos.splice(index_of_object_to_remove, 1)
 
     pushTodosToLocalStorage()
+
+    // dependent values update : 
+    TotalNumberOfTodos().updateTotalTodoChipCount(todos.length)
+    DoneTodosCount().updateDoneTodoChipCount(todos.filter(todo => todo.checked===true).length)
 }
 
 /**

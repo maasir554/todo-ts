@@ -1,7 +1,7 @@
 import { logo } from "../assets/logo"
 
 import { HyperInstance } from "../Hyper/Hyper"
-import { deleteAllButton, deleteSelectedButton } from "./buttons/"
+import { DoneTodosCount, TotalNumberOfTodos, deleteAllButton, deleteSelectedButton } from "./buttons/"
 
 import { Settings } from "./Settings"
 
@@ -95,9 +95,12 @@ const Container = ( props = containerProps ) => {
 
     const footer = document.createElement('footer')
     
+    footer.appendChild(DoneTodosCount().html)
     footer.appendChild(deleteSelectedButton())
-
+    footer.appendChild(TotalNumberOfTodos().html)
     footer.appendChild(deleteAllButton())
+    
+
 
     // append footer to Container
 

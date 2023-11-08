@@ -27,7 +27,7 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
 
         }
         else{
-            textBox.style.textDecoration = 'none'
+            displayText.style.textDecoration = 'none'
             indexDisplay.style.textDecoration = 'none'
             // encl.style.backgroundColor = ''
             encl.classList.remove('todo-item-done')
