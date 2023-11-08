@@ -105,7 +105,7 @@ const setActiveMode = (value: string) => {
  */
 
 const updateAppThemeAndMode = () => {
-    console.log("chhala bei!");
+
     const themeObj = AllThemes[ActiveTheme as keyof typeof AllThemes]
     
     const cssProperties = themeObj[ActiveMode as keyof typeof themeObj]

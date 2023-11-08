@@ -1,6 +1,6 @@
 import { CreateTodoItem } from "./components"
 
-let todos:{id:string, text:string, dateCreated: Date, checked?:boolean}[] = [
+let todos:{id:string, text:string, dateCreated: Date, checked:boolean}[] = [
     {id: 's43fr', text:"Your tasks will appear like this.", dateCreated:new Date(), checked: false},
     {id: 'dsfw3', text:"Please avoid procrastination.", dateCreated: new Date(), checked: false}
 ]
@@ -18,7 +18,7 @@ const getTodos = () => {
     return todos
 }
 
-const addTodo = ( todoObject: {id: string, text: string, dateCreated: Date} ) => {
+const addTodo = ( todoObject: {id: string, text: string, dateCreated: Date, checked: false} ) => {
     todos.push(todoObject)
 
     pushTodosToLocalStorage()

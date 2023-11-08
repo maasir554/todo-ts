@@ -15,16 +15,16 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
    checkButton.type = 'button';
    
    const updateCheckedStatus = () => {
+        
         checkButton.innerHTML = `<i class="ri-checkbox-${isTodoChecked(props.todoId) ? '' : 'blank-'}circle-line"></i>`
+        
         if (isTodoChecked(props.todoId)){
-            textBox.style.textDecoration = 'line-through'
+            // textBox.style.textDecoration = 'line-through'
+            displayText.style.textDecoration = 'line-through'
             indexDisplay.style.textDecoration = 'line-through'
 
             encl.classList.add('todo-item-done')
 
-            // encl.style.borderColor = 'rgb(112 172 84)'
-            
-            // checkButton.style.backgroundColor = 'rgb(170 218 147)'
         }
         else{
             textBox.style.textDecoration = 'none'
@@ -55,7 +55,7 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
 
     encl.appendChild(indexDisplay)
 
-    // Tp diaplay the text content
+    // To diaplay the text content
     
     const textBox = document.createElement('textarea');
 
@@ -173,35 +173,29 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
     
     removeButton.onclick = () => {
             
-        //first, get the index of the todo item being removed, from the global record: 
-    
-        const listIndex = getIndexOfTodo(props.todoId)
-
-        // Then remove the item from the global record
-
-        removeTodo(props.todoId)
-
-        // Remove element from Hyper list and DOM: 
-
-        HyperTodosList_removeTodo(methods.getHyperIndex())
-
-        encl.style.animation = "todo-remove-anim 0.25s ease 1"
+        const animTime = 250; //ms
         
+        encl.style.animation = `todo-remove-anim ${animTime}ms ease 1 forwards`
+        
+        // setTimeOut mei isi liye rakkha h kyuki pehle animation play ho jaaye, uske baad remove ho.
         setTimeout(() => {
+            //first, get the index of the todo item being removed, from the global record:
+            const  listIndex = getIndexOfTodo(props.todoId)
             
+            // Then remove the item from the global record
+            removeTodo(props.todoId)
+            
+            // Remove element from Hyper list and DOM: 
+            HyperTodosList_removeTodo(methods.getHyperIndex())
             encl.remove()
-        
-        }, 250);
-    
-        // Now, in the ui, the below elements' indexes should be updated: 
+            const HyperTodos = getHyperTodos();
 
-        const HyperTodos = getHyperTodos();
-
-        for (let i=listIndex; i < getTodos().length; i++){
-            
-                HyperTodos[i].methods?.setDisplayIndex(i+1);
-
-        }
+            // Now, in the ui, the below elements' indexes should be updated: 
+            for (let i=listIndex; i < getTodos().length; i++){
+                
+                    HyperTodos[i].methods?.setDisplayIndex(i+1);
+            }
+        }, animTime);
     
     }
     
@@ -217,8 +211,14 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
         /** This function is need because we need to update the HyperIndex of the particular element manually when the reference list is updated. */
         updateHyperIndex: (n: number) => void,
 
-        /**This function disables animations */
-        disableAnimation: () => void 
+        /** This function disables animations */
+        disableAnimation: () => void,
+
+        /** Function for deleting a specific todo */
+        deleteCompletely: () => void
+
+        /** Function to find if the todo is checked */
+        getIsChecked: () => boolean,
 
     }
     
@@ -242,6 +242,11 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
             encl.style.animation = 'none';
 
         },
+
+        deleteCompletely :  () => removeButton.click(),
+
+        getIsChecked : () => {return isTodoChecked(props.todoId)!}
+
 
     }
     return {element: encl, methods: methods}

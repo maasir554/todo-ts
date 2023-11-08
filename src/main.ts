@@ -50,7 +50,7 @@ ImplementHyper(
             displayElements:[ 
                 todoAdderElement,
                 todoAppWrapper
-            ]
+            ],
         }
     ).out()
 )

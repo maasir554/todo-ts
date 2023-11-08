@@ -1,0 +1,26 @@
+:root{
+    --danger-bg: rgb(244, 229, 229);
+}
+
+.footerBtn{
+    background-color: var(--danger-bg);
+    padding: 5px 10px;
+    font-weight: 500;
+    font-size: 14px;
+    border: none;
+    color: rgb(175, 84, 84);
+    border-radius: 7.5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover{
+        background-color: rgb(226, 213, 213);
+    }
+    &:active{
+        opacity: 0.8;
+    }
+    &:focus{
+        outline: 2px solid var(--theme-color);
+    }
+}

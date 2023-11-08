@@ -123,11 +123,12 @@
         padding: 7.5px 15px;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: flex-start;
         font-size: 14px;
         color: var(--normal-font-color);
         font-weight: 600;
         background-color: var(--secondary-bg);
+        gap: 10px;
     }
 
     & section{

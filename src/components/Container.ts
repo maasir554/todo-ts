@@ -1,6 +1,7 @@
 import { logo } from "../assets/logo"
 
 import { HyperInstance } from "../Hyper/Hyper"
+import { deleteAllButton, deleteSelectedButton } from "./buttons/"
 
 import { Settings } from "./Settings"
 
@@ -93,8 +94,10 @@ const Container = ( props = containerProps ) => {
     // making footer
 
     const footer = document.createElement('footer')
+    
+    footer.appendChild(deleteSelectedButton())
 
-    footer.textContent = 'made by Mohammad Maasir'
+    footer.appendChild(deleteAllButton())
 
     // append footer to Container
 
