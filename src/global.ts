@@ -19,7 +19,7 @@ const getTodos = () => {
     return todos
 }
 
-const addTodo = ( todoObject: {id: string, text: string, dateCreated: Date, checked: false} ) => {
+const addTodo = ( todoObject: {id: string, text: string, dateCreated: Date, checked: boolean} ) => {
     todos.push(todoObject)
 
     pushTodosToLocalStorage()

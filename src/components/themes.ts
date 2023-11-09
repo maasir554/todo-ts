@@ -1,3 +1,5 @@
+import { updateThemeIndicatorBox } from "./Settings";
+import { updateToggleModeButtonDisplay } from "./buttons/ModeToggle";
 
 const AllThemes = {
     "default" : {
@@ -91,15 +93,22 @@ const getActiveTheme = () => {
     return ActiveTheme;
 }
 
-const setActiveTheme = (value: string) => ActiveTheme = value
+const setActiveTheme = (value: string) => {
+    ActiveTheme = value 
+}
 
 
 
 const getActiveMode = () => {return ActiveMode}
 
-const setActiveMode = (value: string) => {
+const setActiveMode = (value: 'light' | 'dark') => {
     ActiveMode = value
     localStorage.setItem('activeMode', value)
+
+    // update other dependent values:
+
+    updateThemeIndicatorBox()
+    updateToggleModeButtonDisplay()
 }
 
 
@@ -123,27 +132,5 @@ const updateAppThemeAndMode = () => {
         document.documentElement.style.setProperty(property, cssProperties[property as keyof typeof cssProperties])
     }
 }
-
-/* 
-    '--normal-font-color': 'rgb(199 199 199)',
-    '--extreme-bg': 'rgb(28 28 28)',
-    '--primary-bg': 'rgb(25 25 25)',
-    '--secondary-bg': 'rgb(51 51 51)',
-    '--normal-btn-bg': 'rgb(27 27 27)',
-    '--normal-border-color': 'rgb(91 91 91)',
-    '--imp-border-color': 'rgb(76 76 76)',
-    '--theme-color': 'rgb(102 156 206)',
-    '--tda-btn-hov-bg': 'rgb(75 75 75)',
-    '--tdi-bg': 'rgb(35 35 35)',
-    '--tdi-btn-bg': 'rgb(51 51 51)',
-    '--tdi-btn-hov-bg': 'rgb(65 65 65)',
-    '--tdi-btn-act-bg': 'rgb(41 41 41)',
-    '--del-btn-fg': 'rgb(174 78 78)',
-    '--cancel-fg': 'rgb(234, 73, 73)',
-    '--tick-icon-fg': 'rgb(125 176 48)',
-    '--scrollbar-bg': 'rgb(30 30 30)',
-    '--scrollbar-thumb-bg': 'rgb(51 51 51)',
-    '--scrollbar-thumb-hov-bg': 'rgb(62 62 62)'
-*/
 
 export {updateAppThemeAndMode, setActiveMode, setActiveTheme, getActiveTheme, getActiveMode}

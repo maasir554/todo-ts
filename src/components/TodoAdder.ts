@@ -31,7 +31,7 @@ const TodoAdder = () => {
     wrapper.appendChild(adb);
 
     interface TodoAdderMethods {
-        addTodoToApp: (props:{WhereToPaint: ReturnType<typeof CreateTodoAppWrapper> , TodoDataGetter:() => {id: string, text: string, dateCreated: Date}[], TodoDataPusher: (todoObject: {id: string, text: string, dateCreated: Date}) => void })=> void,
+        addTodoToApp: (props:{WhereToPaint: ReturnType<typeof CreateTodoAppWrapper> , TodoDataGetter:() => {id: string, text: string, dateCreated: Date}[], TodoDataPusher: (todoObject: {id: string, text: string, dateCreated: Date, checked: boolean}) => void })=> void,
         
         addSubmitFunctionality : (handeler: EventListener) => void,
         
@@ -82,7 +82,7 @@ const TodoAdder = () => {
 
                 // push details to list (the global object) :
                 
-                props.TodoDataPusher({id: todoId, text:inputText, dateCreated:new Date()})
+                props.TodoDataPusher({id: todoId, text:inputText, dateCreated:new Date(), checked: false})
             
                 // get the final length of the list
             

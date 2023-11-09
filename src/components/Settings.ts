@@ -25,6 +25,7 @@ const LightDarkOptionBox = () => {
         indicator.style. width = getComputedStyle(option).width;
         indicator.style.height = getComputedStyle(option).height;
         indicator.style.left = option.offsetLeft + 'px'
+        console.log(getComputedStyle(option).width);
  
     } 
     
@@ -32,14 +33,6 @@ const LightDarkOptionBox = () => {
          setIndicatorTo(getActiveMode() === 'light' ? option1 : option2) 
         }, 1);
     
-    // [option1, option2].forEach(
-    //     option => {
-    //         option.onclick = () => {
-    //             setIndicatorTo(option)
-    //         }
-    //     }
-    // )
-
     option1.onclick = () =>{
         setIndicatorTo(option1)
         setActiveMode('light')
@@ -54,7 +47,10 @@ const LightDarkOptionBox = () => {
 
     optionBox.appendChild(indicator)
 
-    return optionBox
+    return {
+        html: optionBox , 
+        setIndicatorToMode: () => setIndicatorTo(getActiveMode() === 'light' ? option1 : option2) 
+    }
 }
 
 const NewSettingsItem = (propertyName: string = "Some Property: ", optionBox: HTMLElement ) => {
@@ -75,6 +71,8 @@ const NewSettingsItem = (propertyName: string = "Some Property: ", optionBox: HT
     return encl
 }
 
+let ThemeIndicatorBox: {html: HTMLElement, setIndicatorToMode: () => void}; 
+
 const Settings = () => {
     const encl = document.createElement('div')
     
@@ -82,8 +80,15 @@ const Settings = () => {
 
     encl.innerHTML += '<h2>Settings</h>'
 
-    encl.appendChild(NewSettingsItem('Light / Dark Mode:', LightDarkOptionBox() ))
+    ThemeIndicatorBox = LightDarkOptionBox()
+
+    encl.appendChild(NewSettingsItem('Light / Dark Mode:', ThemeIndicatorBox.html))
+
     return encl;
 }
 
-export {Settings}
+const updateThemeIndicatorBox = () => {
+    if(ThemeIndicatorBox?.setIndicatorToMode) ThemeIndicatorBox?.setIndicatorToMode()
+}
+
+export {Settings, updateThemeIndicatorBox}

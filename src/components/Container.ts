@@ -1,7 +1,7 @@
 import { logo } from "../assets/logo"
 
 import { HyperInstance } from "../Hyper/Hyper"
-import { DoneTodosCount, TotalNumberOfTodos, deleteAllButton, deleteSelectedButton } from "./buttons/"
+import { DoneTodosCount, ModeToggleButton, TotalNumberOfTodos, deleteAllButton, deleteSelectedButton } from "./buttons/"
 
 import { Settings } from "./Settings"
 
@@ -99,6 +99,7 @@ const Container = ( props = containerProps ) => {
     footer.appendChild(deleteSelectedButton())
     footer.appendChild(TotalNumberOfTodos().html)
     footer.appendChild(deleteAllButton())
+    footer.appendChild(ModeToggleButton())
     
 
 
@@ -125,7 +126,7 @@ const Container = ( props = containerProps ) => {
             
             setTimeout(() => { 
                 displayArea.innerHTML = ''; 
-                displayArea.appendChild(Settings()) 
+                displayArea.appendChild(Settings())           
             }, animDuration/3)
 
             settingsBtn.className = 'ri-arrow-left-line'

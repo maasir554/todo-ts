@@ -297,7 +297,6 @@
     justify-content: center;
     gap: 10px;
     border-radius: 10px;
-    padding-left: 20px;
     box-shadow: 0 10px 50px var(--ui-shade-color);
     border: 1px solid var(--imp-border-color);
     margin-bottom: 10px;
