@@ -212,13 +212,16 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
         updateHyperIndex: (n: number) => void,
 
         /** This function disables animations */
-        disableAnimation: () => void,
+        // disableAnimation: () => void,
 
         /** Function for deleting a specific todo */
         deleteCompletely: () => void
 
         /** Function to find if the todo is checked */
         getIsChecked: () => boolean,
+
+        /** Function to change css transition */
+        setTransition: (cssvalue:string) => void,
 
     }
     
@@ -237,15 +240,17 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
         
         updateHyperIndex: (n) => {hyperIndex = n} ,
 
-        disableAnimation: () => {
-            encl.style.opacity = '1';
-            encl.style.animation = 'none';
+        // disableAnimation: () => {
+        //     encl.style.opacity = '1';
+        //     encl.style.animation = 'none';
 
-        },
+        // },
 
         deleteCompletely :  () => removeButton.click(),
 
-        getIsChecked : () => {return isTodoChecked(props.todoId)!}
+        getIsChecked : () => {return isTodoChecked(props.todoId)!},
+
+        setTransition: (cssvalue:string) => encl.style.transition = cssvalue,
 
 
     }

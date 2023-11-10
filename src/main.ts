@@ -7,12 +7,15 @@ import {CreateContainer, CreateTodoAdder, CreateTodoAppWrapper,CreateTodoItem, u
 import { ImplementHyper } from "./Hyper/Hyper";
 
 import { getTodos, addTodo, HyperTodosList_addTodo } from './global';
+import { CreateFilterBox } from './components/TodoAppWrapper';
 
 const root = document.getElementById('root')
 
 const todoAdderElement = CreateTodoAdder()
 
 const todoAppWrapper = CreateTodoAppWrapper()
+
+const todoFilterBox = CreateFilterBox()
 
 // if initially, entries are present, then populate them:
 
@@ -49,8 +52,13 @@ ImplementHyper(
         {
             displayElements:[ 
                 todoAdderElement,
+                todoFilterBox,
                 todoAppWrapper
             ],
         }
     ).out()
 )
+
+const TodoAppWrapperInstanceMethods = todoAppWrapper.methods
+
+export {TodoAppWrapperInstanceMethods}

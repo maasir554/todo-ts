@@ -51,7 +51,7 @@
     width: 100%;
     min-height: 100vh;
     background: var(--primary-bg);
-    padding: 20px;
+    padding: 5px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -142,8 +142,8 @@
         flex-direction: column;
         align-items: center;
         justify-content: start;
-        padding: 20px;
-        padding-top: 30px;
+        padding: 10px;
+        padding-top: 20px;
         /* background-color: white; */
     }
 }
@@ -231,6 +231,7 @@
     /* padding: 15px; */
     /* background-color: gray; */
     border-radius: 10px;
+    flex: 1;
     &::before, &::after{
         content: '';
         position: absolute;
@@ -458,4 +459,74 @@
         opacity: 1;
         transform: translateX(0);
     }
+}
+
+.top-logo{
+    fill: var(--primary-bg);
+    stroke: var(--theme-color);
+    & .logo-line {
+        fill: var(--theme-color);
+        stroke: none;
+    }
+}
+
+.todo-filter-box{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   width: 100%;
+   padding: 0 20px;
+   /* padding-top: 10px; */
+   max-width: 700px;
+   height: 50px;
+   font-weight: 500;
+   color: var(--theme-color);
+   background-color: var(--secondary-bg);
+   border-radius: 10px;
+   position: relative;
+   animation: todo-adder-anim 0.5s ease;
+   margin-bottom: 10px;
+
+    & .indicator{
+        position: absolute;
+        border-radius: 7px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+        background-color: var(--indicator-bg);
+        transition: left 250ms ease;
+        margin-top: 5px;
+        border-bottom: 2.5px solid var(--theme-color);
+        display: flex;
+        height: calc(100% - 7.5px);
+    }
+
+   & button{
+    height: calc(100% - 10px);
+    min-width: 100px;
+    color: var(--normal-font-color);
+    background-color: transparent;
+    border-radius: 10px;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    z-index: 5;
+    
+
+    
+
+    &:active{
+        opacity: 0.8;
+    }
+   }
+
+   & .inactive-option{
+        &:hover{
+                background-color: var(--primary-bg);
+            }
+   }
+
+   & .active-option {
+    color: var(--theme-color)
+    }
+
 }

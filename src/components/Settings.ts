@@ -25,8 +25,6 @@ const LightDarkOptionBox = () => {
         indicator.style. width = getComputedStyle(option).width;
         indicator.style.height = getComputedStyle(option).height;
         indicator.style.left = option.offsetLeft + 'px'
-        console.log(getComputedStyle(option).width);
- 
     } 
     
     setTimeout(() => {

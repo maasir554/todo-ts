@@ -54,4 +54,7 @@
     &:active{
         opacity: 0.8;
     }
+    &:focus{
+        outline: 2px solid var(--theme-color);
+    }
 }

@@ -1,3 +1,4 @@
+import { getHyperTodos } from "../global";
 import { updateThemeIndicatorBox } from "./Settings";
 import { updateToggleModeButtonDisplay } from "./buttons/ModeToggle";
 
@@ -128,9 +129,18 @@ const updateAppThemeAndMode = () => {
     
     const cssProperties = themeObj[ActiveMode as keyof typeof themeObj]
 
+    getHyperTodos().forEach(
+        todoItem => todoItem.methods?.setTransition('none') 
+    )
+
+    // finally, change the css properties:
     for (let property in cssProperties){
         document.documentElement.style.setProperty(property, cssProperties[property as keyof typeof cssProperties])
     }
+
+    setTimeout(() => { getHyperTodos().forEach(
+        todoItem => todoItem.methods?.setTransition('') 
+    ) }, 5)
 }
 
 export {updateAppThemeAndMode, setActiveMode, setActiveTheme, getActiveTheme, getActiveMode}

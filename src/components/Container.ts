@@ -4,6 +4,7 @@ import { HyperInstance } from "../Hyper/Hyper"
 import { DoneTodosCount, ModeToggleButton, TotalNumberOfTodos, deleteAllButton, deleteSelectedButton } from "./buttons/"
 
 import { Settings } from "./Settings"
+import { updateFilterIndicatorPosn } from "./TodoAppWrapper"
 
 type ContainerMethods = { setBGColor: (color: string) => void  } 
 
@@ -11,6 +12,9 @@ type containerPropsType = {className?:string, id?:string|null, displayElements?:
 
 const containerProps: containerPropsType = {className:'container', id:null, displayElements:null}
 
+let showSettings = false;
+
+const getShowSettings = () => {return showSettings}
 
 
 // Reusable component: Container
@@ -45,7 +49,7 @@ const Container = ( props = containerProps ) => {
 
     // Top bar -> logo
 
-    TopBar.innerHTML += logo('light')
+    TopBar.innerHTML += logo()
     
     // Top bar -> title
 
@@ -83,7 +87,7 @@ const Container = ( props = containerProps ) => {
 
     const populateReceivedContent = (disableAnimation = false) => props.displayElements?.forEach(
         hyperElem => {
-            if (disableAnimation) hyperElem.methods.disableAnimation();
+            if (disableAnimation) hyperElem.methods.disableAnimation ? hyperElem.methods.disableAnimation() : null;
             
             displayArea.appendChild(hyperElem.out())
         }
@@ -109,7 +113,7 @@ const Container = ( props = containerProps ) => {
 
     // for Settings button functionality: 
     
-    let showSettings = false;
+   
 
     settingsBtn.onclick = () => {
         showSettings = !showSettings
@@ -146,6 +150,8 @@ const Container = ( props = containerProps ) => {
 
             settingsBtn.className = 'ri-settings-5-line'
 
+            setTimeout(() => { updateFilterIndicatorPosn() }, animDuration/2);
+
             history.pushState(null, '', '/');
         }
     }
@@ -171,4 +177,4 @@ const CreateContainer = (props: containerPropsType  = {className:'', id:null , d
 
 }
 
-export { CreateContainer }
+export { CreateContainer, getShowSettings }
