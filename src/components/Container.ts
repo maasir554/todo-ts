@@ -138,7 +138,7 @@ const Container = ( props = containerProps ) => {
             settingsBtn.className = 'ri-arrow-left-line'
 
             // experimental: url change without reload
-            history.pushState(null, '', 'todo-ts/settings');
+            history.pushState(null, '', '/todo-ts/settings');
 
         }
 
