@@ -138,7 +138,7 @@ const Container = ( props = containerProps ) => {
             settingsBtn.className = 'ri-arrow-left-line'
 
             // experimental: url change without reload
-            history.pushState(null, '', '/settings');
+            history.pushState(null, '', 'todo-ts/settings');
 
         }
 
@@ -154,7 +154,7 @@ const Container = ( props = containerProps ) => {
 
             setTimeout(() => { updateFilterIndicatorPosn() }, animDuration/2);
 
-            history.pushState(null, '', '/');
+            history.pushState(null, '', '/todo-ts');
         }
     }
 
