@@ -1,5 +1,6 @@
 import { CreateTodoItem } from "./components"
 import { DoneTodosCount, TotalNumberOfTodos } from "./components/buttons"
+import { RemainingTodosCount } from "./components/buttons/chips"
 
 let todos:{id:string, text:string, dateCreated: Date, checked:boolean}[] = [
     {id: 's43fr', text:"Your tasks will appear like this.", dateCreated:new Date(), checked: false},
@@ -7,7 +8,8 @@ let todos:{id:string, text:string, dateCreated: Date, checked:boolean}[] = [
 ]
 
 // For fetching todos from local storage:
-if (localStorage.getItem('todos') !== null) todos = JSON.parse(localStorage.getItem('todos')!)
+if (localStorage.getItem('todos') !== null) todos = JSON.parse(localStorage.getItem('todos')!);
+
 
 // function for pushing todos to local storage
 const pushTodosToLocalStorage = () =>{
@@ -27,6 +29,7 @@ const addTodo = ( todoObject: {id: string, text: string, dateCreated: Date, chec
     // some values which depends on todos object can be updated here:
 
     TotalNumberOfTodos().updateTotalTodoChipCount(todos.length)
+    RemainingTodosCount().updateRemainingTodosCount(todos.filter(todo => todo.checked === false).length)
 
 }
 
@@ -58,6 +61,7 @@ const toggleCheckTodoById = (id:string) => {
     // dependent values update
 
     DoneTodosCount().updateDoneTodoChipCount(todos.filter(todo => todo.checked===true).length)
+    RemainingTodosCount().updateRemainingTodosCount(todos.filter(todo => todo.checked === false).length)
 }
 
 /**
@@ -73,6 +77,7 @@ const removeTodo =  (id: string) => {
     // dependent values update : 
     TotalNumberOfTodos().updateTotalTodoChipCount(todos.length)
     DoneTodosCount().updateDoneTodoChipCount(todos.filter(todo => todo.checked===true).length)
+    RemainingTodosCount().updateRemainingTodosCount(todos.filter(todo => todo.checked === false).length)
 }
 
 /**
@@ -94,6 +99,21 @@ const HyperTodosList_removeTodo = (indexToRemove: number) => {
     HyperTodosList.forEach((htd, idx) => htd.methods?.updateHyperIndex(idx))
 }
 
+// for the filter box:
+
+let isFilterBoxEnabled = localStorage.getItem('isTodoFilterBoxEnabled') ? JSON.parse(localStorage.getItem('isTodoFilterBoxEnabled')!) : false;
+
+const getIsFilterBoxEnabled = () => {
+    return isFilterBoxEnabled
+}
+
+const setIsFilterBoxEnabled = (val: boolean) => {
+    isFilterBoxEnabled = val;
+    localStorage.setItem('isTodoFilterBoxEnabled', JSON.stringify(val))
+}
+
+
+
 export {
         getTodos,
         addTodo, 
@@ -105,5 +125,7 @@ export {
         isTodoChecked,
         getHyperTodos, 
         HyperTodosList_addTodo, 
-        HyperTodosList_removeTodo 
+        HyperTodosList_removeTodo,
+        getIsFilterBoxEnabled,
+        setIsFilterBoxEnabled
     }

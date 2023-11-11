@@ -61,4 +61,4 @@ ImplementHyper(
 
 const TodoAppWrapperInstanceMethods = todoAppWrapper.methods
 
-export {TodoAppWrapperInstanceMethods}
+export {TodoAppWrapperInstanceMethods, todoFilterBox}

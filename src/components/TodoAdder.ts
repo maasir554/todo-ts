@@ -3,6 +3,7 @@ import { HyperInstance } from "../Hyper/Hyper";
 import { HyperTodosList_addTodo } from "../global";
 // import { CreateTodoAppWrapper } from "./Todo";
 import { nanoid } from 'nanoid'
+import { todoFilterBox } from "../main";
 
 
 const TodoAdder = () => {
@@ -23,7 +24,7 @@ const TodoAdder = () => {
     
     adb.className ="disabled"
     adb.type = 'button';
-    adb.innerHTML = `<i class="ri-add-line"></i> Add`
+    adb.innerHTML = `<i class="ri-add-circle-line" style="font-size:16px;margin-right:5px"></i> Add`
     adb.disabled =true;
     
     wrapper.appendChild(ipt); 
@@ -88,6 +89,9 @@ const TodoAdder = () => {
             
                 const AllTodosCount = props.TodoDataGetter().length;
 
+                // If todos were filtered initially, unfilter them:
+                todoFilterBox.methods?.unfilter();
+                
                 // Create a new HyperInstandce and add/push it:
                 
                 const HyperTodoItem = CreateTodoItem({idx:AllTodosCount,todoText:inputText, todoId:todoId})

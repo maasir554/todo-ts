@@ -65,9 +65,9 @@
     max-width:850px;
     flex-direction: column;
     /* min-height: 600px; */
-    height: 90vh;
+    height: 95vh;
     background-color: var(--extreme-bg);
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
     border-radius: 15px;
     overflow: hidden;
     border: 2px solid var(--normal-border-color);
@@ -164,6 +164,7 @@
     box-shadow: 0px 10px 50px var(--ui-shade-color);
     border: 1px solid var(--imp-border-color);
     margin-bottom: 15px;
+    --anim-direction:1;
     animation: todo-adder-anim 0.5s 1 ease-out;
     
     & button{
@@ -176,6 +177,9 @@
         font-weight: 500;
         background-color: var(--normal-btn-bg);
         color: var(--normal-font-color);
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
 
         &:hover{
             background-color: var(--tda-btn-hov-bg);
@@ -416,7 +420,7 @@
 @keyframes todo-adder-anim{
     0%{
         opacity: 0.1;
-        transform: translateX(-75px) ;
+        transform: translateX( calc(var(--anim-direction) * -75px) ) ;
     }
     60%{
         opacity: 1;
@@ -486,6 +490,7 @@
    position: relative;
    animation: todo-adder-anim 0.5s ease;
    margin-bottom: 10px;
+   --anim-direction: -1;
 
     & .indicator{
         position: absolute;

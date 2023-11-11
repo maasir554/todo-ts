@@ -6,8 +6,8 @@ const TotalTodosChip = document.createElement('span')
 const TotalNumberOfTodos = () => {
     const todosCount = getTodos().length;
     TotalTodosChip.className = "chip";
-    TotalTodosChip.textContent = `Total todos: ${todosCount}`
-    return {html: TotalTodosChip, updateTotalTodoChipCount: (n: number) => TotalTodosChip.textContent = `Total todos: ${n}` };
+    TotalTodosChip.textContent = `Total: ${todosCount}`
+    return {html: TotalTodosChip, updateTotalTodoChipCount: (n: number) => TotalTodosChip.textContent = `Total: ${n}` };
 }
 
 const DoneTodosChip = document.createElement('span')
@@ -17,9 +17,20 @@ const DoneTodosCount = () => {
     
     DoneTodosChip.className = "chip";
     
-    DoneTodosChip.textContent = `Completed todos: ${CompletedTodosCount}`
+    DoneTodosChip.textContent = `Completed: ${CompletedTodosCount}`
     
-    return {html: DoneTodosChip, updateDoneTodoChipCount: (n: number) => DoneTodosChip.textContent = `Completed todos: ${n}` };
+    return {html: DoneTodosChip, updateDoneTodoChipCount: (n: number) => DoneTodosChip.textContent = `Completed: ${n}` };
 }
 
-export {TotalNumberOfTodos, DoneTodosCount}
+const RemainingTodosChip = document.createElement('span')
+
+const RemainingTodosCount = () => {
+
+    const NumberOfRemainingTodos = getTodos().filter(todo => todo.checked === false).length;
+    RemainingTodosChip.className = 'chip'
+    RemainingTodosChip.textContent = `Remaining: ${NumberOfRemainingTodos}`
+    return {html: RemainingTodosChip, updateRemainingTodosCount: (n: number) => RemainingTodosChip.textContent = `Remaining: ${n}`}
+}
+
+
+export {TotalNumberOfTodos, DoneTodosCount, RemainingTodosCount}

@@ -1,5 +1,5 @@
 import { HyperInstance } from "../Hyper/Hyper";
-import { getHyperTodos } from "../global";
+import { getHyperTodos, getIsFilterBoxEnabled } from "../global";
 import { TodoAppWrapperInstanceMethods } from "../main";
 import { getShowSettings } from "./Container";
 
@@ -89,6 +89,8 @@ const CreateFilterBox = () => {
     
     FilterBoxHTML.className = "todo-filter-box"
     
+    FilterBoxHTML.style.display = getIsFilterBoxEnabled() ? "flex" : "none";
+    
     // theree options:
     const btn_show_all = document.createElement('button');
     const btn_show_done = document.createElement('button');
@@ -166,6 +168,12 @@ const CreateFilterBox = () => {
 
     const methods = {
         html: FilterBoxHTML,
+        setDisplay: (val:string) => {
+            FilterBoxHTML.style.display = val
+        },
+        unfilter:() => {
+            if(activeOption !== btn_show_all)  btn_show_all.click()
+        },
     }
     
     return new HyperInstance({element: FilterBoxHTML, methods: methods})

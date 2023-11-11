@@ -2,6 +2,7 @@ import { logo } from "../assets/logo"
 
 import { HyperInstance } from "../Hyper/Hyper"
 import { DoneTodosCount, ModeToggleButton, TotalNumberOfTodos, deleteAllButton, deleteSelectedButton } from "./buttons/"
+import { RemainingTodosCount } from "./buttons/chips"
 
 import { Settings } from "./Settings"
 import { updateFilterIndicatorPosn } from "./TodoAppWrapper"
@@ -103,6 +104,7 @@ const Container = ( props = containerProps ) => {
     footer.appendChild(deleteSelectedButton())
     footer.appendChild(TotalNumberOfTodos().html)
     footer.appendChild(deleteAllButton())
+    footer.appendChild(RemainingTodosCount().html)
     footer.appendChild(ModeToggleButton())
     
 
