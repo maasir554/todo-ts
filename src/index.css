@@ -49,7 +49,7 @@
 
 #root{
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
     background: var(--primary-bg);
     padding: 5px;
     display: flex;
@@ -60,9 +60,10 @@
 }
 
 .container{
+    flex: 1;
     display: flex;
     width:100%;
-    max-width:850px;
+    /* max-width:850px; */
     flex-direction: column;
     /* min-height: 600px; */
     height: 95vh;
@@ -73,6 +74,8 @@
     border: 2px solid var(--normal-border-color);
     box-shadow: 10px 10px 25px var(--ui-shade2-color), inset 0 0 500px var(--ui-shade-color);
     justify-content: space-between;
+    container-name: app-container;
+    container-type: inline-size;
 
     & .top-bar {
         width:100%; 
@@ -84,6 +87,8 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        container-name: top-bar;
+        container-type: inline-size;
 
         & svg {
             min-width:50px;
@@ -151,7 +156,7 @@
 .todo-adder{
     height: 50px;
     min-height: 50px;
-    max-width: 700px; 
+    max-width: 900px; 
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -166,6 +171,8 @@
     margin-bottom: 15px;
     --anim-direction:1;
     animation: todo-adder-anim 0.5s 1 ease-out;
+    container-name: todo-adder;
+    container-type: inline-size;
     
     & button{
         border: none;
@@ -226,14 +233,12 @@
 .wrapper{
     position: relative;
     width: 100%;
-    /* max-height: 500px; */
+    max-width: 950px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     overflow: hidden; 
-    /* padding: 15px; */
-    /* background-color: gray; */
     border-radius: 10px;
     flex: 1;
     &::before, &::after{
@@ -293,7 +298,7 @@
 
 .todo-item{
     background-color: var(--tdi-bg);
-    max-width: 700px;
+    max-width: 900px;
     width:100%;
     padding: 10px;
     display: flex;
@@ -309,7 +314,9 @@
     opacity: 0;
     animation: todo-item-anim 0.25s ease forwards;
     z-index: 1;
-    
+    container-name: todo-item;
+    container-type: inline-size;
+
     &:hover{
         box-shadow: none;
         background-color: var(--primary-bg);
@@ -357,6 +364,15 @@
         }
 
     }
+
+    /* & .desktop-button-box{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        height: 100%;
+    } */
+
     & button{
         padding: 5.5px 10px;
         font-size: 16px;
@@ -390,6 +406,14 @@
     & .cross {
         color: var(--cancel-fg);
     }
+}
+
+.desktop-button-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 100%;
 }
 
 .todo-item-done{
@@ -481,7 +505,7 @@
    width: 100%;
    padding: 0 20px;
    /* padding-top: 10px; */
-   max-width: 700px;
+   max-width: 900px;
    height: 50px;
    font-weight: 500;
    color: var(--theme-color);
@@ -491,6 +515,8 @@
    animation: todo-adder-anim 0.5s ease;
    margin-bottom: 10px;
    --anim-direction: -1;
+   container-type: inline-size;
+   container-name: todo-filter-box;
 
     & .indicator{
         position: absolute;
@@ -498,7 +524,7 @@
         border-bottom-right-radius: 0;
         border-bottom-left-radius: 0;
         background-color: var(--indicator-bg);
-        transition: left 250ms ease;
+        transition: left 250ms ease, width 250ms ease;
         margin-top: 5px;
         border-bottom: 2.5px solid var(--theme-color);
         display: flex;
@@ -516,7 +542,9 @@
     cursor: pointer;
     z-index: 5;
     
-
+    &:focus-visible {
+        outline: 2px solid var(--theme-color);
+    }
     
 
     &:active{

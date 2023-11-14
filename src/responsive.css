@@ -1,0 +1,132 @@
+@container todo-item (width < 600px){
+    .desktop-button-box{
+        display: none;
+        flex-direction: column;
+        --is-required: 0;
+    }
+}
+
+@container todo-item (width >= 600px){
+    .three-dot-btn{
+        display: none;
+    }
+}
+
+@media (width < 490px){
+    .todo-filter-box{
+        padding: 5px 10px;
+        height: 50px;
+        justify-content: space-around;
+        font-size: 14px;
+        & button{
+            height: 100%;
+            min-width: 50px;
+            padding: 10px;
+        }
+    }
+}
+
+@container todo-adder (width < 380px){
+    input {
+        padding: 5px 10px !important;
+        font-size: 16px !important;
+    }
+    button{
+        padding: 5px 10px !important;
+    }
+}
+
+
+@media (width < 700px){
+    .todo-item{
+        gap: 7.5px;
+        & p{
+            padding: 5px 0px;
+        }
+    }
+}
+
+@container app-container (width < 360px){
+    section{
+        padding: 5px !important;
+        padding-top: 10px !important;
+    }
+}
+
+@media (width < 500px){
+    .todo-item{
+        & p, & span{font-size: 14px;}
+    }
+    .settings-item, .settings-item button{
+        font-size: 14px !important;
+    }
+}
+
+@media (width < 600px){
+    .subwrp{
+        padding: 20px 5px !important;
+    }
+}
+
+@media only screen and (width < 500px){
+    #root{
+        padding: 0 !important;
+    }
+    .container{
+        border: none !important;
+        border-radius: 0;
+    }
+}
+
+@container top-bar (width < 400px){
+    h3{
+        display: none !important;
+    } 
+}
+
+.three-dot-btn{
+    width: 40px;
+    height: 40px;
+    position: relative;
+    overflow: visible;
+    & button{
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.three-dot-options{
+    display: none;
+    background-color: var(--secondary-bg);
+    border: 2px solid var(--theme-color);
+    /* display: flex; */
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 5px;
+    border-radius: 10px;
+    position: absolute;
+    top:100% ;
+    right: 0;
+    animation: dropdown-anim 0.2s ease;
+    & button{
+        /* background-color: red; */
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 10px;
+    }
+
+}
+
+@keyframes dropdown-anim{
+    0%{
+        opacity: 0;
+        transform: translateY(-20px);
+        height: 0;
+    }
+    100%{
+        opacity: 10px;
+        transform: translateY(0);
+        height: 100px;
+    }
+}

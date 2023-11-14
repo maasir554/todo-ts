@@ -100,11 +100,11 @@ const Container = ( props = containerProps ) => {
 
     const footer = document.createElement('footer')
     
-    footer.appendChild(DoneTodosCount().html)
-    footer.appendChild(deleteSelectedButton())
     footer.appendChild(TotalNumberOfTodos().html)
-    footer.appendChild(deleteAllButton())
+    footer.appendChild(DoneTodosCount().html)
     footer.appendChild(RemainingTodosCount().html)
+    footer.appendChild(deleteSelectedButton())
+    footer.appendChild(deleteAllButton())
     footer.appendChild(ModeToggleButton())
     
 
@@ -138,7 +138,7 @@ const Container = ( props = containerProps ) => {
             settingsBtn.className = 'ri-arrow-left-line'
 
             // experimental: url change without reload
-            history.pushState(null, '', '/todo-ts/settings');
+            history.pushState(null, '', '/todo-ts/settings/');
 
         }
 
@@ -154,7 +154,7 @@ const Container = ( props = containerProps ) => {
 
             setTimeout(() => { updateFilterIndicatorPosn() }, animDuration/2);
 
-            history.pushState(null, '', '/todo-ts');
+            history.pushState(null, '', '/todo-ts/');
         }
     }
 

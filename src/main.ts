@@ -2,6 +2,8 @@ import 'remixicon/fonts/remixicon.css'
 
 import './index.css'
 
+import './responsive.css'
+
 import {CreateContainer, CreateTodoAdder, CreateTodoAppWrapper,CreateTodoItem, updateAppThemeAndMode} from "./components";
 
 import { ImplementHyper } from "./Hyper/Hyper";

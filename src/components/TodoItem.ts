@@ -79,6 +79,51 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
 
     // ---------------
 
+    // a component that will contain all the buttons
+
+    const buttonBox = document.createElement('div');
+    buttonBox.className = 'desktop-button-box'
+    encl.appendChild(buttonBox);
+
+    // Three-dot button for smaller displays:
+    const ThreeDotButton = document.createElement('div')
+    ThreeDotButton.className = "three-dot-btn"
+    const threeDotControl = document.createElement('button')
+    threeDotControl.innerHTML = `<i class="ri-more-2-line"></i>`;
+   
+    threeDotControl.onclick = () =>{
+        const subwrapper = encl.parentElement;
+        
+        if(encl === subwrapper?.lastChild){
+           encl.style.marginBottom = getComputedStyle(ThreeDotOptions).display === 'none' ? '120px' : '';
+            subwrapper.scrollTop = subwrapper.scrollHeight;
+        
+        }
+
+        ThreeDotOptions.style.display = getComputedStyle(ThreeDotOptions).display === 'none' ? 'flex': 'none';
+
+        const closeOnClickOutside = (evt: Event) =>{
+            if(evt.target !== ThreeDotOptions && !ThreeDotOptions.contains(evt.target as Node) && evt.target !== threeDotControl && !threeDotControl.contains(evt.target as Node) ){
+                ThreeDotOptions.style.display = 'none';
+                encl.style.marginBottom = ""
+                window.removeEventListener('click',closeOnClickOutside)
+            }
+        }
+
+        window.addEventListener('click', closeOnClickOutside)
+    
+    }
+    
+    ThreeDotButton.appendChild(threeDotControl)
+    const ThreeDotOptions = document.createElement('div')
+    ThreeDotOptions.className = "three-dot-options"
+    ThreeDotButton.appendChild(ThreeDotOptions)
+    const MakeThreeDotOption = (button:HTMLElement, text:string) => {
+        button.innerHTML += text;
+        return button;
+    }
+
+
     // once we got index display, and textbox, we can update the checked status.
     updateCheckedStatus()
 
@@ -92,7 +137,7 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
     
     editButton.innerHTML = '<i class="ri-edit-2-line"></i>'
     
-    encl.appendChild(editButton);
+    buttonBox.appendChild(editButton);
 
     // optional code for animation:
     
@@ -124,6 +169,11 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
         cancelButton.style.display = 'none'
         // now update the global object:
         updateTodoText(props.todoId, textBox.value)
+        // for smaller viewport: 
+        if(getComputedStyle(buttonBox).getPropertyValue('--is-required') == `0`){
+            buttonBox.style.display = ''
+            ThreeDotButton.style.display = ''
+        }
     }
     
     editButton.onclick = () => {
@@ -151,15 +201,67 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
         disableEdit()
     }
 
-    encl.appendChild(cancelButton)
+    buttonBox.appendChild(cancelButton)
     
     /** Remove button for Todo Item */
     const removeButton = document.createElement('button'); 
     
     removeButton.innerHTML = '<i class="ri-delete-bin-line todo-remove-icon"></i>'
     
-    encl.appendChild(removeButton);
+    buttonBox.appendChild(removeButton);
+
+    // For Remove button:
+       
+    removeButton.onclick = () => {
+               
+       const animTime = 250; //ms
+       
+       encl.style.animation = `todo-remove-anim ${animTime}ms ease 1 forwards`
+       
+       // setTimeOut mei isi liye rakkha h kyuki pehle animation play ho jaaye, uske baad remove ho.
+       setTimeout(() => {
+           //first, get the index of the todo item being removed, from the global record:
+           const  listIndex = getIndexOfTodo(props.todoId)
+           
+           // Then remove the item from the global record
+           removeTodo(props.todoId)
+           
+           // Remove element from Hyper list and DOM: 
+           HyperTodosList_removeTodo(methods.getHyperIndex())
+           encl.remove()
+           const HyperTodos = getHyperTodos();
+
+           // Now, in the ui, the below elements' indexes should be updated: 
+           for (let i=listIndex; i < getTodos().length; i++){
+               
+                   HyperTodos[i].methods?.setDisplayIndex(i+1);
+           }
+       }, animTime);
+
+    }
+
     
+    //append options in the three dot box:
+    const editButtonClone = editButton.cloneNode(true) as HTMLElement;
+    
+    editButtonClone.addEventListener('click' , editButton.onclick)
+    
+    editButtonClone.addEventListener('click', ()=>{
+        ThreeDotButton.style.display = 'none'
+        buttonBox.style.display = 'flex'
+        // buttonBox.style.flexDirection = 'column'
+    })
+
+    const removeButtonClone = removeButton.cloneNode(true) as HTMLElement;
+
+    removeButtonClone.onclick = removeButton.onclick;
+
+    ThreeDotOptions.append(
+        MakeThreeDotOption(editButtonClone , "Edit"),
+        MakeThreeDotOption(removeButtonClone, 'Delete')
+    )
+    
+    encl.appendChild(ThreeDotButton)
     
     // date when the component is created.
     const dateCreated = Date.now()
@@ -169,35 +271,7 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
     /** This represents the index of the created HyperInstance in the reference list */
     let hyperIndex = getHyperTodos().length;
     
-    // For Remove button:
-    
-    removeButton.onclick = () => {
-            
-        const animTime = 250; //ms
-        
-        encl.style.animation = `todo-remove-anim ${animTime}ms ease 1 forwards`
-        
-        // setTimeOut mei isi liye rakkha h kyuki pehle animation play ho jaaye, uske baad remove ho.
-        setTimeout(() => {
-            //first, get the index of the todo item being removed, from the global record:
-            const  listIndex = getIndexOfTodo(props.todoId)
-            
-            // Then remove the item from the global record
-            removeTodo(props.todoId)
-            
-            // Remove element from Hyper list and DOM: 
-            HyperTodosList_removeTodo(methods.getHyperIndex())
-            encl.remove()
-            const HyperTodos = getHyperTodos();
-
-            // Now, in the ui, the below elements' indexes should be updated: 
-            for (let i=listIndex; i < getTodos().length; i++){
-                
-                    HyperTodos[i].methods?.setDisplayIndex(i+1);
-            }
-        }, animTime);
-    
-    }
+   
     
     interface TodoItemMethods {
         getDateCreated: ()=> void,
