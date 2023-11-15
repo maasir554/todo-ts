@@ -4,7 +4,8 @@ let updateToggleModeButtonDisplay: () => void;
 
 const ModeToggleButton = () => {
     const btn = document.createElement('button')
-    
+    btn.title = "Toggle Light/Dark mode"
+
     btn.type = 'button'
     
     btn.className = 'theme-toggle-button'

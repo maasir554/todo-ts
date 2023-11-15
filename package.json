@@ -1,12 +1,12 @@
 {
-  "homepage": "https://username.github.io/todo-ts",
+  "homepage": "https://maasir554.github.io/todo-ts",
   "name": "simple-todo-ts",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "predeploy":"npm run build",
-    "deploy":"gh-pages -d dist",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
@@ -14,7 +14,8 @@
   "devDependencies": {
     "gh-pages": "^6.0.0",
     "typescript": "^5.0.2",
-    "vite": "^4.4.5"
+    "vite": "^4.4.5",
+    "vite-plugin-pwa": "^0.16.7"
   },
   "dependencies": {
     "remixicon": "^3.5.0"

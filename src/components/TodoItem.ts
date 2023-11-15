@@ -10,7 +10,7 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
 
    const checkButton = document.createElement('button')
 
-    checkButton.className = 'tdi-check-btn'
+    checkButton.className = 'tdi-check-btn'; checkButton.title = "Check"
 
    checkButton.type = 'button';
    
@@ -131,7 +131,7 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
 
     const editButton = document.createElement('button');
     
-    editButton.className = 'todo-edit-button';
+    editButton.className = 'todo-edit-button'; editButton.title = "Edit";
     
     editButton.type = 'button'
     
@@ -192,7 +192,7 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
 
     const cancelButton = document.createElement('button')
 
-    cancelButton.innerHTML = '<i class="ri-close-line cross"></i>'
+    cancelButton.innerHTML = '<i class="ri-close-line cross"></i>'; cancelButton.title = "Cancel"
 
     cancelButton.style.display = 'none'
 
@@ -206,7 +206,7 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
     /** Remove button for Todo Item */
     const removeButton = document.createElement('button'); 
     
-    removeButton.innerHTML = '<i class="ri-delete-bin-line todo-remove-icon"></i>'
+    removeButton.innerHTML = '<i class="ri-delete-bin-line todo-remove-icon"></i>'; removeButton.title = "Delete"
     
     buttonBox.appendChild(removeButton);
 
