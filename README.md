@@ -1,5 +1,5 @@
 # todo-ts 
-A frontend web app made with TypeScript using Vite.
+A frontend [ progressive  ] web app made with TypeScript using Vite.
 ## 🔑 Key features 
 - add, delete, and modify your tasks.
 - your tasks are saved in 🗄️local storage.
