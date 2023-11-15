@@ -88,7 +88,7 @@ const TodoItem = (props: {idx:number, todoText: string, todoId: string}, animate
     // Three-dot button for smaller displays:
     const ThreeDotButton = document.createElement('div')
     ThreeDotButton.className = "three-dot-btn"
-    const threeDotControl = document.createElement('button'); threeDotControl.title = "options"
+    const threeDotControl = document.createElement('button'); threeDotControl.title = "options";threeDotControl.type="button";
     threeDotControl.innerHTML = `<i class="ri-more-2-line"></i>`;
    
     threeDotControl.onclick = () =>{

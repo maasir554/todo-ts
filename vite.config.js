@@ -19,23 +19,23 @@ export default defineConfig({
           theme_color: '#195EC6',
           icons: [
             {
-              src: 'logo-192x192.svg',
+              src: '/logo-192x192.svg',
               sizes: '192x192',
-              type: 'image/svg'
+              type: 'image/png'
             },
             {
-              src: 'logo-512x512.svg',
+              src: '/logo-512x512.svg',
               sizes: '512x512',
-              type: 'image/svg'
+              type: 'image/png'
             },
             {
-              src: 'logo-512x512.png',
+              src: '/logo-512x512.png',
               sizes: '512x512',
               type: 'image/png',
               purpose: 'any'
             },
             {
-              src: 'logo-512x512.png',
+              src: '/logo-512x512.png',
               sizes: '512x512',
               type: 'image/png',
               purpose: 'maskable'
